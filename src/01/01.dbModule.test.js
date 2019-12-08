@@ -1,6 +1,6 @@
 import dbModule from './dbModule'
 
-describe('dbModule', () => {
+describe.skip('dbModule', () => {
   it(`should connect to a database when connection string is provided`, () => {
     // given
     const connectionString = 'db://localhost:3000'
@@ -17,9 +17,10 @@ describe('dbModule', () => {
     // no connection string provided
 
     // when
-    expect(() => dbModule.connect())
-      // then
-      .toThrow('invlid connection string!')
+    const connectingWithoutConnectionString = () => dbModule.connect()
+
+    // then
+    expect(connectingWithoutConnectionString).toThrow('invlid connection string!')
   })
 
   it(`should close db connection`, () => {

@@ -1,25 +1,18 @@
-import dbModule from './dbModule'
+// 🦖 Uncomment to start working on the test suite
+// import dbModule from './dbModule'
 
-describe('db', () => {
-  it(`should throw an error when trying to access collection without name`, () => {
-    // given
-    const testDb = dbModule.connect('db://localhost:3000')
-
-    // when
-    expect(() => testDb.collection())
-      // then
-      .toThrow('provide collection name!')
-  })
-
+// 🦖 Your job is to replace the comments with actual code, have fun!
+// Remember to unskip the test!
+describe.skip('db', () => {
   it(`should create empty collection when it doesn't exist`, () => {
     // given
-    const testDb = dbModule.connect('db://localhost:3000')
+    // you are connected to a database
 
     // when
-    const collection = testDb.collection('user')
+    // accessing 'user' collection for a first time
 
     // then
-    expect(collection.findAll()).toEqual([])
+    // calling `findAll` returns and empty collection
 
     // 💡 Note: the name of the test is not:
     // `should create empty collection with 'findAll' method that returns all entities when it doesn't exist`
@@ -27,92 +20,110 @@ describe('db', () => {
     // you'll learn more about them later
   })
 
-  it(`should return already created collection`, () => {
+  it(`should throw an error when accessing collection without name`, () => {
     // given
-    const testDb = dbModule.connect('db://localhost:3000')
-    const collection = testDb.collection('user')
+    // you are connected to a database
 
     // when
-    const theSameCollection = testDb.collection('user')
+    // accessing a collection without name
 
     // then
-    expect(collection === theSameCollection).toEqual(true)
-    // or use `toBe`
-    // expect(collection).toBe(theSameCollection)
+    // a 'provide collection name!' error is thrown
+  })
+
+  it(`should return the same collection when accessing it for the second time`, () => {
+    // given
+    // you are connected to a database
+    // you got access to the 'user' collection
+
+    // when
+    // accessing 'user' collection for a second time
+
+    // then
+    // first collection is the same as second collection
+    // (or as a developer would say: it's referetially equal)
+
+    // 💡 Note: you need to call `collection()` twice
   })
 
   it(`should insert entity to a collection`, () => {
     // given
-    const testDb = dbModule.connect('db://localhost:3000')
-    const collection = testDb.collection('user')
-    const entity = { _id: 1, name: 'Krzyś' }
+    // you are connected to a database
+    // you got access to the 'user' collection
+    // there is a `{ _id: 1, name: [your name] }` entity
 
     // when
-    collection.insert(entity)
+    // inserting an entity
 
     // then
-    expect(collection.findAll()).toEqual([entity])
+    // calling `findAll` would find it
   })
 
   it(`should allow finding entities by id`, () => {
     // given
-    const testDb = dbModule.connect('db://localhost:3000')
-    const collection = testDb.collection('user')
-    const entity = { _id: 1, name: 'Krzyś' }
-    collection.insert(entity)
+    // you are connected to a database
+    // you got access to the 'user' collection
+    // there is a `{ _id: 1, name: [your name] }` entity
+    // and the entity is added to the collection
 
     // when
-    const entityById = collection.findById(1)
+    // finding the entity by id
 
     // then
-    expect(entityById).toEqual(entity)
+    // entity you found is the same as you expected
   })
 
   it(`should allow removing entities by id`, () => {
     // given
-    const testDb = dbModule.connect('db://localhost:3000')
-    const collection = testDb.collection('user')
-    const entity = { _id: 1, name: 'Krzyś' }
-    collection.insert(entity)
+    // you are connected to a database
+    // you got access to the 'user' collection
+    // there is a `{ _id: 1, name: [your name] }` entity
+    // and the entity is added to the collection
 
     // when
-    collection.remove(entity._id)
+    // removing an entity by
 
     // then
-    expect(collection.findById(1)).toEqual(null)
+    // entity can no longer be found
   })
 
   it(`should allow truncating collection`, () => {
     // given
-    const testDb = dbModule.connect('db://localhost:3000')
-    const collection = testDb.collection('user')
-    const entity = { _id: 1, name: 'Krzyś' }
-    collection.insert(entity)
+    // you are connected to a database
+    // you got access to the 'user' collection
+    // there is a `{ _id: 1, name: [your name] }` entity
+    // and the entity is added to the collection
 
     // when
-    collection.truncate()
+    // truncating the collection
 
     // then
-    expect(collection.findAll()).toEqual([])
+    // the collection is empty
   })
 
   it(`should clean up collections when closing connection`, () => {
     // given
-    const testDb = dbModule.connect('db://localhost:3000')
-    const collection = testDb.collection('user')
-    const entity = { _id: 1, name: 'Krzyś' }
-    collection.insert(entity)
+    // you are connected to a database
+    // you got access to the 'user' collection
+    // there is a `{ _id: 1, name: [your name] }` entity
+    // and the entity is added to the collection
 
     // when
-    testDb.close()
+    // closing the db
 
     // then
-    expect(collection.findAll()).toEqual([])
+    // the collection is empty
   })
 
-  afterAll(() => {
-    if (!dbModule.allCollectionClosed()) {
-      console.error('close the connection!')
-    }
-  })
+  // 🦖 Uncomment when you reach this point,
+  // move it to the top where it belongs
+  // and fix the error
+  //
+  // afterAll(() => {
+  //   if (!dbModule.allCollectionClosed()) {
+  //     console.error('close the connection!')
+  //   }
+  // })
+  //
+  // 💡 Note: consider using after and before hooks
 })
