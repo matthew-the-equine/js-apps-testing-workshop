@@ -10,6 +10,8 @@ describe.skip('dbModule', () => {
 
     // then
     expect(typeof testDb.collection).toEqual('function')
+
+    // 💡 Note: don't do this: `should return a db instance when calling 'connect' with 'connectionString'`
   })
 
   it(`should not connect to a database when connection string is not provided`, () => {
