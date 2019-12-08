@@ -31,6 +31,14 @@ describe('dbModule', () => {
 
     // then
     expect(closedMessage).toEqual('db connection closed!')
+    expect(testDb.isConnectionClosed()).toEqual(true)
+
+    // 💡 Note: we have two assertions here
+    // 1. one that checks the message
+    // 2. one that checks if the `isConnectionClosed` property is `true`
+    // We use both of those assertions to test if the 'feature' is working.
+    // That's what it means to have "one coherent assertion".
+    // It doesn't mean there needs to be only one `expect` per test.
   })
 })
 
@@ -130,8 +138,22 @@ describe('db', () => {
     expect(collection.findAll()).toEqual([])
   })
 
+  it(`should clean up collections when closing connection`, () => {
+    // given
+    const testDb = dbModule.connect('db://localhost:3000')
+    const collection = testDb.collection('user')
+    const entity = { _id: 1, name: 'Krzyś' }
+    collection.insert(entity)
+
+    // when
+    testDb.close()
+
+    // then
+    expect(collection.findAll()).toEqual([])
+  })
+
   afterAll(() => {
-    if (!dbModule.connectionClosed) {
+    if (!dbModule.allCollectionClosed()) {
       console.error('close the connection!')
     }
   })
