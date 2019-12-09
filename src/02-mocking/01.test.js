@@ -1,7 +1,7 @@
-// Zachmurzenie:
+// General:
 // 🌞
-// ⛅ light
-// 🌧️ rainfal
+// ⛅ light rainfall
+// 🌧️ rainfall
 // 🌩️ storm without rain
 // ⛈️ storm with rain
 // 🌨️ snowfall
@@ -20,26 +20,55 @@
 // rainfall >= 10 && rainfall < 50
 // rainfall >= 50
 
-const weatherFactory = subscriber => () => {
-  const forecast = `📅 [${(new Date()).toLocaleDateString()}] / 🌞 / 🌡️ [20*C 🤗]`
-  subscriber(forecast)
-}
+// TODO use calendar emoji 📅
 
-describe(`weatherFactory`, () => {
-  it(`should allow subscribing to the weather forcast and show default data`, () => {
+import weatherForecastService from './weatherForecast/weatherForecastService'
+
+// Season:
+const springEmoji = '🍃'
+const summerEmoji = '🌻'
+const fallEmoji = '🍂'
+const winterEmoji = '☃️'
+
+describe(`weatherForecastService`, () => {
+  it(`should allow subscribing to the weather forcast and show default emojis`, () => {
     // given
     const subscriber = jest.fn()
-    const runForecast = weatherFactory(subscriber)
+    const runForecast = weatherForecastService({
+      dateService: () => new Date(),
+    })
 
     // when
-    runForecast()
+    runForecast(subscriber)
 
     // then
-    // console.log(result)
     const forecast = subscriber.mock.calls[0][0]
+
+    console.log(forecast)
+
+    const sunnyDay = '🌞'
+    const optimalTemperature = '🌡️ [20*C 🤗]'
+
+    expect(forecast.includes(winterEmoji)).toEqual(true) // TODO: a mistake to fix
+    expect(forecast.includes(sunnyDay)).toEqual(true)
+    expect(forecast.includes(optimalTemperature)).toEqual(true)
+  })
+
+  it(`should show season emoji based on date`, () => {
+    // given
+    const summerDate = new Date('2019-08-01')
+    const dateService = () => summerDate
+    const subscriber = jest.fn()
+    const runForecast = weatherForecastService({ dateService })
+
+    // when
+    runForecast(subscriber)
+
+    // then
+    const forecast = subscriber.mock.calls[0][0]
+
     console.log({ forecast })
-    expect(forecast.includes('📅')).toEqual(true)
-    expect(forecast.includes('🌞')).toEqual(true)
-    expect(forecast.includes('🌡️ [20*C 🤗]')).toEqual(true)
+
+    expect(forecast.includes(summerEmoji)).toEqual(true)
   })
 })
