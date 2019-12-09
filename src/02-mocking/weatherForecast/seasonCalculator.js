@@ -1,8 +1,6 @@
 function getSeason(date) {
   const month = date.getMonth() + 1
 
-  console.log(month)
-
   switch(month) {
     case 12:
     case 1:
