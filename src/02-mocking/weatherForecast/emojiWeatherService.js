@@ -1,6 +1,10 @@
 import seasonCalculator from './seasonCalculator'
 
-const emojiWeatherService = ({ dateService, forecastService }) => async () => {
+const emojiWeatherService = ({
+  dateService,
+  forecastService,
+  rainfallService,
+}) => async () => {
   const date = dateService()
   const localDate = date.toLocaleDateString()
   const season = seasonCalculator(date)
@@ -12,13 +16,19 @@ const emojiWeatherService = ({ dateService, forecastService }) => async () => {
     'winter': '☃️',
   })[season]
 
-  const { response: forecastResponse } = await forecastService('rainfall')
+  const { response: forecastResponse } = await forecastService()
 
   const forecastEmoji = ({
     'rainfall': '🌧️',
+    'stormWithRain': '⛈️',
+    'snowfall': '🌨️',
   })[forecastResponse]
 
-  return `${seasonEmoji} [${localDate}] / ${forecastEmoji} / 🌡️ [20*C 🤗]`
+  const { response: rainfallResponse } = await rainfallService(forecastResponse)
+
+  const rainfallLevel = rainfallResponse ? ` [${rainfallResponse.toString()}mm]` : ''
+
+  return `${seasonEmoji} [${localDate}] / ${forecastEmoji}${rainfallLevel} / 🌡️ [20*C 🤗]`
 }
 
 export default emojiWeatherService

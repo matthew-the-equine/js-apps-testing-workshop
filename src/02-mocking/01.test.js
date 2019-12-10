@@ -28,7 +28,7 @@ const sunnyEmoji = '🌞'
 const rainfallEmoji =  '🌧️'
 const stormWithoutRainEmoji = '🌩️'
 const stormWithRainEmoji = '⛈️'
-const snowfall = '🌨️'
+const snowfallEmoji = '🌨️'
 
 describe(`emojiWeatherService`, () => {
   it(`should allow subscribing to the weather forcast and show default emojis`, async () => {
@@ -36,6 +36,7 @@ describe(`emojiWeatherService`, () => {
     const runForecast = emojiWeatherService({
       dateService: () => new Date(),
       forecastService: () => Promise.resolve({ response: null }),
+      rainfallService: () => Promise.resolve({ response: null }),
     })
 
     // when
@@ -57,7 +58,8 @@ describe(`emojiWeatherService`, () => {
     const dateService = () => summerDate
     const runForecast = emojiWeatherService({
       dateService,
-      forecastService: () => ({ response: null }),
+      forecastService: () => Promise.resolve({ response: null }),
+      rainfallService: () => Promise.resolve({ response: null }),
     })
 
     // when
@@ -73,9 +75,10 @@ describe(`emojiWeatherService`, () => {
     // given
     const summerDate = new Date('2019-08-01')
     const dateService = () => summerDate
-    const forecastService = () => Promise.resolve(({ response: 'rainfall' }))
+    const forecastService = () => Promise.resolve({ response: 'snowfall' })
+    const rainfallService = () => Promise.resolve({ response: null })
 
-    const runForecast = emojiWeatherService({ dateService, forecastService })
+    const runForecast = emojiWeatherService({ dateService, forecastService, rainfallService })
 
     // when
     const forecast = await runForecast()
@@ -83,7 +86,35 @@ describe(`emojiWeatherService`, () => {
     // then
     console.log({ forecast })
 
-    expect(forecast.includes(rainfallEmoji)).toEqual(true)
+    expect(forecast.includes(snowfallEmoji)).toEqual(true)
+  })
+
+  ;[
+    { forecastResponse: 'rainfall', expectedEmoji: rainfallEmoji },
+    { forecastResponse: 'stormWithRain', expectedEmoji: stormWithRainEmoji },
+  ].forEach(({ forecastResponse, expectedEmoji }) => {
+    it(`should show rainfall levels when the forecast is ${forecastResponse}`, async () => {
+      // given
+      const summerDate = new Date('2019-08-01')
+      const dateService = () => summerDate
+      const forecastService = () => Promise.resolve(({ response: forecastResponse }))
+      const rainfallService = jest.fn(() => Promise.resolve(({ response: 10 })))
+
+      const runForecast = emojiWeatherService({ dateService, forecastService, rainfallService })
+
+      // when
+      const forecast = await runForecast()
+
+      // then
+      console.log({ forecast })
+
+      expect(forecast.includes(`${expectedEmoji} [10mm]`)).toEqual(true)
+      expect(rainfallService.mock.calls[0][0]).toEqual(forecastResponse)
+    })
+  })
+
+  it.skip(`should not show rainfall levels when it's not raining`, async () => {
+
   })
 
   it.todo('test error responses')
@@ -93,4 +124,5 @@ describe(`emojiWeatherService`, () => {
   it.todo('forecastService should make decisions based on date but you cant see it in test :) / separate test suite?')
   it.todo('or maybe forecastService should make decisions randomly / separate test suite?')
   it.todo('add database')
+  it.todo('add service authentication !')
 })
