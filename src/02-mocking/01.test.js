@@ -35,16 +35,13 @@ describe(`emojiWeatherService`, () => {
     // given
     const runForecast = emojiWeatherService({
       dateService: () => new Date(),
-      forecastService: () => ({ response: null }),
+      forecastService: () => Promise.resolve({ response: null }),
     })
-    const subscriber = jest.fn()
 
     // when
-    await runForecast(subscriber)
+    const forecast = await runForecast()
 
     // then
-    const forecast = subscriber.mock.calls[0][0]
-
     console.log(forecast)
 
     const optimalTemperature = '🌡️ [20*C 🤗]'
@@ -62,14 +59,11 @@ describe(`emojiWeatherService`, () => {
       dateService,
       forecastService: () => ({ response: null }),
     })
-    const subscriber = jest.fn()
 
     // when
-    await runForecast(subscriber)
+    const forecast = await runForecast()
 
     // then
-    const forecast = subscriber.mock.calls[0][0]
-
     console.log({ forecast })
 
     expect(forecast.includes(summerEmoji)).toEqual(true)
@@ -82,22 +76,21 @@ describe(`emojiWeatherService`, () => {
     const forecastService = () => Promise.resolve(({ response: 'rainfall' }))
 
     const runForecast = emojiWeatherService({ dateService, forecastService })
-    const subscriber = jest.fn()
 
     // when
-    await runForecast(subscriber)
+    const forecast = await runForecast()
 
     // then
-    const forecast = subscriber.mock.calls[0][0]
-
     console.log({ forecast })
 
     expect(forecast.includes(rainfallEmoji)).toEqual(true)
   })
 
   it.todo('test error responses')
+  it.todo('show test without fake timers')
   it.todo('forecastService can sometimes fail due to weather :)')
   it.todo('there are no real services :) where are they?')
   it.todo('forecastService should make decisions based on date but you cant see it in test :) / separate test suite?')
   it.todo('or maybe forecastService should make decisions randomly / separate test suite?')
+  it.todo('add database')
 })
