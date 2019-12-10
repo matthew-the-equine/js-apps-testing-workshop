@@ -25,10 +25,10 @@ const winterEmoji = '☃️'
 
 // General:
 const sunnyEmoji = '🌞'
-const rainfallEmoji =  '🌧️'
-const stormWithoutRainEmoji = '🌩️'
-const stormWithRainEmoji = '⛈️'
 const snowfallEmoji = '🌨️'
+const rainfallEmoji =  '🌧️'
+const stormWithRainEmoji = '⛈️'
+const stormWithoutRainEmoji = '🌩️'
 
 describe(`emojiWeatherService`, () => {
   it(`should allow subscribing to the weather forcast and show default emojis`, async () => {
@@ -113,8 +113,28 @@ describe(`emojiWeatherService`, () => {
     })
   })
 
-  it.skip(`should not show rainfall levels when it's not raining`, async () => {
+  ;[
+    { forecastResponse: 'sunny', expectedEmoji: sunnyEmoji },
+    { forecastResponse: 'stormWithoutRain', expectedEmoji: stormWithoutRainEmoji },
+    { forecastResponse: 'snowfall', expectedEmoji: snowfallEmoji },
+  ].forEach(({ forecastResponse, expectedEmoji }) => {
+    it(`should not show rainfall levels when the forecast is ${forecastResponse}`, async () => {
+      // given
+      const summerDate = new Date('2019-08-01')
+      const dateService = () => summerDate
+      const forecastService = () => Promise.resolve(({ response: forecastResponse }))
+      const rainfallService = jest.fn()
 
+      const runForecast = emojiWeatherService({ dateService, forecastService, rainfallService })
+
+      // when
+      const forecast = await runForecast()
+
+      // then
+      const rainfallLevelsText = 'mm]'
+      expect(forecast.includes(rainfallLevelsText)).not.toEqual(true)
+      expect(rainfallService.mock.calls.length).toEqual(0)
+    })
   })
 
   it.todo('test error responses')
@@ -125,4 +145,6 @@ describe(`emojiWeatherService`, () => {
   it.todo('or maybe forecastService should make decisions randomly / separate test suite?')
   it.todo('add database')
   it.todo('add service authentication !')
+  it.todo('Exercise: move the conditional logic of checking rainfall to the rainfallService itself')
+  it.todo('not every emoji is checked and it works :wink:')
 })

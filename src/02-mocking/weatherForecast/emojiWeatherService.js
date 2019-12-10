@@ -1,5 +1,15 @@
 import seasonCalculator from './seasonCalculator'
 
+const getRainfallResponse = async (rainfallService, forecastResponse) => {
+  if (['sunny', 'snowfall', 'stormWithoutRain'].includes(forecastResponse)) {
+    return null
+  }
+
+  const { response: rainfallResponse } = await rainfallService(forecastResponse)
+
+  return rainfallResponse
+}
+
 const emojiWeatherService = ({
   dateService,
   forecastService,
@@ -24,8 +34,7 @@ const emojiWeatherService = ({
     'snowfall': '🌨️',
   })[forecastResponse]
 
-  const { response: rainfallResponse } = await rainfallService(forecastResponse)
-
+  const rainfallResponse = await getRainfallResponse(rainfallService, forecastResponse)
   const rainfallLevel = rainfallResponse ? ` [${rainfallResponse.toString()}mm]` : ''
 
   return `${seasonEmoji} [${localDate}] / ${forecastEmoji}${rainfallLevel} / 🌡️ [20*C 🤗]`
