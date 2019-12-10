@@ -46,7 +46,7 @@ function db() {
 
     isConnectionClosed: () => {
       return connectionClosed
-    }
+    },
   }
 }
 
@@ -66,7 +66,7 @@ const dbModule = {
   },
   allCollectionClosed() {
     return this.databases.every(db => db.isConnectionClosed())
-  }
+  },
 }
 
 export default dbModule

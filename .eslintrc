@@ -2,6 +2,7 @@
   "extends": "react-app",
   "rules": {
     "semi": ["error", "never"],
-    "quotes": ["error", "single", { "allowTemplateLiterals": true }]
+    "quotes": ["error", "single", { "allowTemplateLiterals": true }],
+    "comma-dangle": ["error", "always-multiline"]
   }
 }

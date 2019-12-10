@@ -1,13 +1,35 @@
 import seasonCalculator from './seasonCalculator'
+import wait from './wait'
+
+const tenSeconds = 10000
 
 const getRainfallResponse = async (rainfallService, forecastResponse) => {
   if (['sunny', 'snowfall', 'stormWithoutRain'].includes(forecastResponse)) {
     return null
   }
 
-  const { response: rainfallResponse } = await rainfallService(forecastResponse)
+  try {
+    // first call
+    const { response: rainfallResponse } = await rainfallService(forecastResponse)
+    return rainfallResponse
+  } catch(error) {
+    try {
+      // second call in case of error
+      await wait(tenSeconds)
+      const { response: rainfallResponse } = await rainfallService(forecastResponse)
+      return rainfallResponse
+    } catch (error) {
+      try {
+        // third call in case of error
+        await wait(tenSeconds)
+        const { response: rainfallResponse } = await rainfallService(forecastResponse)
+        return rainfallResponse
+      } catch (error) {
+        return null
+      }
+    }
 
-  return rainfallResponse
+  }
 }
 
 const emojiWeatherService = ({

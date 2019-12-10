@@ -30,6 +30,7 @@ const rainfallEmoji =  '🌧️'
 const stormWithRainEmoji = '⛈️'
 const stormWithoutRainEmoji = '🌩️'
 
+// 💡 Note: The service implementation is stupid sometimes, it mimics the real life examples
 describe(`emojiWeatherService`, () => {
   it(`should allow subscribing to the weather forcast and show default emojis`, async () => {
     // given
@@ -137,14 +138,125 @@ describe(`emojiWeatherService`, () => {
     })
   })
 
+  // Note: The Rainfall Service(tm) communicates with an IoT device to check the levels
+  // When it's really rainy and wet, the device occasionally fails
+  // In this situatio the support team suggests calling the service again after 10 second
+  // If you retried 3 times then the device is probably dead and you should stop calling the service
+  // Just call the support and they will replace the device :)
+  // This test should handle the retries
+
+  // Wait for promises running in the non-async timer callback to complete.
+  // From https://stackoverflow.com/a/58716087/308237
+  const flushPromises = () => new Promise(resolve => setImmediate(resolve))
+
+  it(`should retry 3 times when rainfall service fails to respond and return error`, async () => {
+    // given
+    jest.useFakeTimers()
+
+    const summerDate = new Date('2019-08-01')
+    const dateService = () => summerDate
+    const forecastService = () => Promise.resolve(({ response: 'rainfall' }))
+    const rainfallService = jest.fn()
+      .mockImplementationOnce(() => Promise.reject('first error'))
+      .mockImplementationOnce(() => Promise.reject('second error'))
+      .mockImplementationOnce(() => Promise.reject('third error'))
+
+    const runForecast = emojiWeatherService({ dateService, forecastService, rainfallService })
+
+    // when
+    const promise = runForecast()
+    // 🤮
+    await flushPromises()
+    jest.runAllTimers()
+    await flushPromises()
+    jest.runAllTimers()
+
+    const forecast = await promise
+
+    // then
+    const rainfallLevelsText = 'mm]'
+    expect(rainfallService.mock.calls[0][0]).toEqual('rainfall')
+    expect(rainfallService.mock.calls[1][0]).toEqual('rainfall')
+    expect(rainfallService.mock.calls[2][0]).toEqual('rainfall')
+    expect(forecast.includes(rainfallLevelsText)).not.toEqual(true)
+  })
+
+  it(`should retry 3 times when rainfall service fails to respond and return response`, async () => {
+    // given
+    jest.useFakeTimers()
+
+    const summerDate = new Date('2019-08-01')
+    const dateService = () => summerDate
+    const forecastService = () => Promise.resolve(({ response: 'rainfall' }))
+    const rainfallService = jest.fn()
+      .mockImplementationOnce(() => Promise.reject('first error'))
+      .mockImplementationOnce(() => Promise.reject('second error'))
+      .mockImplementationOnce(() => Promise.resolve(({ response: 10 })))
+
+    const runForecast = emojiWeatherService({ dateService, forecastService, rainfallService })
+
+    // when
+    const promise = runForecast()
+    // 🤮
+    await flushPromises()
+    jest.advanceTimersByTime(10000)
+    await flushPromises()
+    jest.advanceTimersByTime(10000)
+
+    const forecast = await promise
+
+    // then
+    expect(rainfallService.mock.calls[0][0]).toEqual('rainfall')
+    expect(rainfallService.mock.calls[1][0]).toEqual('rainfall')
+    expect(rainfallService.mock.calls[2][0]).toEqual('rainfall')
+    expect(forecast.includes('[10mm]')).toEqual(true)
+  })
+
+  it(`should not retry 3 time when rainfall service responds with success on a second call`, async () => {
+    // given
+    jest.useFakeTimers()
+
+    const summerDate = new Date('2019-08-01')
+    const dateService = () => summerDate
+    const forecastService = () => Promise.resolve(({ response: 'rainfall' }))
+    const rainfallService = jest.fn()
+      .mockImplementationOnce(() => Promise.reject('first error'))
+      .mockImplementationOnce(() => Promise.resolve(({ response: 10 })))
+
+    const runForecast = emojiWeatherService({ dateService, forecastService, rainfallService })
+
+    // when
+    const promise = runForecast()
+    // 🤮
+    await flushPromises()
+    jest.advanceTimersByTime(10000)
+
+    const forecast = await promise
+
+    // then
+    expect(rainfallService.mock.calls.length).toEqual(2)
+    expect(rainfallService.mock.calls[0][0]).toEqual('rainfall')
+    expect(rainfallService.mock.calls[1][0]).toEqual('rainfall')
+    expect(forecast.includes('[10mm]')).toEqual(true)
+  })
+
+  // it(`should handle rainfall service failures by retrying the request`, async () => {
+
+  it.todo(``)
+
   it.todo('test error responses')
+  it.todo('temperature response')
   it.todo('show test without fake timers')
   it.todo('forecastService can sometimes fail due to weather :)')
-  it.todo('there are no real services :) where are they?')
   it.todo('forecastService should make decisions based on date but you cant see it in test :) / separate test suite?')
   it.todo('or maybe forecastService should make decisions randomly / separate test suite?')
   it.todo('add database')
   it.todo('add service authentication !')
-  it.todo('Exercise: move the conditional logic of checking rainfall to the rainfallService itself')
   it.todo('not every emoji is checked and it works :wink:')
+  it.todo('should handle rainfall service timeouts')
+
+  it.todo('Exercise: move the conditional logic of checking rainfall to the rainfallService itself')
+  it.todo('Exercise: uncomment the real implementation of the rainfallService that will ruin the tests')
+  it.todo('Advanced Exercise: there are no real services :) you might want to implement them... test first #tddftw http://www.extremeprogramming.org/rules/testfirst.html')
+  it.todo('Exercise: add logger')
 })
