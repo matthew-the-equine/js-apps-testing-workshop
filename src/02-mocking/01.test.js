@@ -149,7 +149,7 @@ describe(`emojiWeatherService`, () => {
   // From https://stackoverflow.com/a/58716087/308237
   const flushPromises = () => new Promise(resolve => setImmediate(resolve))
 
-  it(`should retry 3 times when rainfall service fails to respond and return error`, async () => {
+  it(`should omit displaying raifall level when rainfall service fails to respond after third retry`, async () => {
     // given
     jest.useFakeTimers()
 
@@ -181,7 +181,7 @@ describe(`emojiWeatherService`, () => {
     expect(forecast.includes(rainfallLevelsText)).not.toEqual(true)
   })
 
-  it(`should retry 3 times when rainfall service fails to respond and return response`, async () => {
+  it(`should display rainfall level  when rainfall service fails to respond two times but then returns the response`, async () => {
     // given
     jest.useFakeTimers()
 
@@ -212,7 +212,7 @@ describe(`emojiWeatherService`, () => {
     expect(forecast.includes('[10mm]')).toEqual(true)
   })
 
-  it(`should not retry 3 time when rainfall service responds with success on a second call`, async () => {
+  it(`should not retry third time when rainfall service responds with success on a second call`, async () => {
     // given
     jest.useFakeTimers()
 
@@ -240,15 +240,9 @@ describe(`emojiWeatherService`, () => {
     expect(forecast.includes('[10mm]')).toEqual(true)
   })
 
-  // it(`should handle rainfall service failures by retrying the request`, async () => {
-
-  it.todo(``)
-
   it.todo('test error responses')
   it.todo('temperature response')
   it.todo('show test without fake timers')
-  it.todo('forecastService can sometimes fail due to weather :)')
-  it.todo('forecastService should make decisions based on date but you cant see it in test :) / separate test suite?')
   it.todo('or maybe forecastService should make decisions randomly / separate test suite?')
   it.todo('add database')
   it.todo('add service authentication !')
@@ -257,6 +251,7 @@ describe(`emojiWeatherService`, () => {
 
   it.todo('Exercise: move the conditional logic of checking rainfall to the rainfallService itself')
   it.todo('Exercise: uncomment the real implementation of the rainfallService that will ruin the tests')
-  it.todo('Advanced Exercise: there are no real services :) you might want to implement them... test first #tddftw http://www.extremeprogramming.org/rules/testfirst.html')
   it.todo('Exercise: add logger')
+  it.todo('Exercise: forecastService should make decisions based on date but you cant see it in test :) / separate test suite?')
+  it.todo('Advanced Exercise: there are no real services :) you might want to implement them... test first #tddftw http://www.extremeprogramming.org/rules/testfirst.html')
 })
