@@ -1,13 +1,3 @@
-// const express = require('express')
-// const app = express()
-// const port = 3678
-
-// app.get('/temperature', (req, res) => res.send('Hello World!'))
-
-// app.listen(port, () => console.log(`Example app listening on port ${port}!`))
-
-// export default app
-
 import request from 'superagent'
 
 const INTERNAL_SERVER_ERROR = 500
