@@ -49,3 +49,5 @@ describe.skip('express app route', () => {
     })
   })
 })
+
+// 📝 TODO: res.send vs return {}
