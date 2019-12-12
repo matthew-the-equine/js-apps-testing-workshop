@@ -16,7 +16,7 @@ class ExamCalculator {
   }
 }
 
-describe('ExamCalculator tested... badly', () => {
+describe.skip('ExamCalculator tested... badly', () => {
   it(`should not throw when it's before 9:00`, () => {
     // given
     const date = new Date()
@@ -47,7 +47,7 @@ describe('ExamCalculator tested... badly', () => {
   })
 })
 
-describe(`ExamCalculator tested... well, better at least`, () => {
+describe.skip(`ExamCalculator tested... well, better at least`, () => {
   it(`should sum when it's before 9:00`, () => {
     // given
     const a = 1
