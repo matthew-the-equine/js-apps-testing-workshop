@@ -17,7 +17,7 @@ const examCalculator = () => ({
 // 👉 TODO: What's wrong with this test?
 // How can you make it pass regardless of date and time?
 // 💡 Note: does this help? https://github.com/facebook/jest/issues/2234
-// 💡 Remember to unskip the tests
+// 💡 Remember to unskip!
 describe.skip('examCalculator', () => {
   it(`should sum when it's before 9:00`, () => {
     // given

@@ -2,7 +2,7 @@
 // import dbModule from './dbModule'
 
 // 🦖 Your job is to replace the comments with actual code, have fun!
-// Remember to unskip the test!
+// 💡 Remember to unskip!
 describe.skip('db', () => {
   it(`should create empty collection when it doesn't exist`, () => {
     // given

@@ -18,6 +18,7 @@ describe.skip('forecast periodic runner', () => {
   // 👉 TODO: Make the test pass
   it('should periodically run a callback', () => {
     // given
+    // 💡 Note: This is how you mock in Jest
     const runForecast = jest.fn(() => Promise.resolve('🕺'))
 
     // when
