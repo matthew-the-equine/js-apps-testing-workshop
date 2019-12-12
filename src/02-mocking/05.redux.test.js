@@ -8,18 +8,18 @@ import { Provider } from 'react-redux'
 import configureMockStore from 'redux-mock-store'
 import { render } from '@testing-library/react'
 
-import EmojiWeather from '../weatherForecast/emojiWeather'
-import { emojis } from '../weatherForecast/emojis'
-import {
-  // 🦖 Uncomment later:
+import EmojiWeather from './weatherForecast/emojiWeather'
+import { emojis } from './weatherForecast/emojis'
+// 🦖 Uncomment later:
+// import {
   // fetchForecast,
   // weatherReducer,
-} from '../weatherForecast/emojiWeather.store'
+// } from './weatherForecast/emojiWeather.store'
 
 const mockStore = configureMockStore()
 
 // 💡 https://testing-library.com/docs/dom-testing-library/cheatsheet
-describe('redux tests', () => {
+describe.skip('redux tests', () => {
   it('should render rainfall emoji based on fake global state', () => {
     // given
     const store = mockStore({

@@ -11,7 +11,7 @@ import { weatherReducer, fetchForecast } from '../weatherForecast/emojiWeather.s
 const mockStore = configureMockStore()
 
 // 💡 https://testing-library.com/docs/dom-testing-library/cheatsheet
-describe('redux tests (final)', () => {
+describe.skip('redux tests (final)', () => {
   it('should render rainfall emoji based on fake global state', () => {
     // given
     const store = mockStore({

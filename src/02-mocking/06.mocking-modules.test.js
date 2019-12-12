@@ -25,3 +25,7 @@ test.skip('should fetch', async () => {
   expect(data).toEqual(response)
   expect(agent.send.mock.calls[0][0]).toEqual({ unit: 'C' })
 })
+
+test.skip('📝 TODO example', () => {
+  // ({ api = require('./api'))
+})
