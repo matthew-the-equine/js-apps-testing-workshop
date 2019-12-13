@@ -1,6 +1,6 @@
-// 🦖 Exercise 1:
-// isn't it too big?
-// do we need it to be this big?
+// 🦖 Isn't it too big?
+// Do we need it to be this big?
+// What is common?
 export const goodMovie = {
   'title': 'Goodfellas',
   'year': '1990',

@@ -32,6 +32,10 @@ const MovieModule = ({
   posterApi,
 }) => {
   const addMovie = async movie => {
+    if (movie.country !== 'USA') {
+      throw new Error('Not an USA movie')
+    }
+
     validateGoodMovie(movie)
 
     const allMovies = await database.getAll()
@@ -46,7 +50,7 @@ const MovieModule = ({
     const movieToSave = await getPoster(posterApi, {
       ...movie,
       id,
-      // 🦖 Exercise 3: uncomment and fix the tests so they not fail again
+      // 🦖 uncomment when needed
       // timestamp: (new Date()).toISOString(),
     })
 
