@@ -17,13 +17,29 @@ const getPoster = async (posterApi, movie) => {
   return movie
 }
 
+const validateGoodMovie = movie => {
+  if (movie.director === 'Rian Johnson' && movie.title.includes('Star Wars')) {
+    throw new Error('This is not a good movie')
+  }
+
+  if (movie.writer.includes('Rian Johnson') && movie.title.includes('Star Wars')) {
+    throw new Error('This is not a good movie')
+  }
+}
+
 const MovieModule = ({
   database,
   posterApi,
 }) => {
-
   const addMovie = async movie => {
-    // validate
+    validateGoodMovie(movie)
+
+    const allMovies = await database.getAll()
+    const duplicate = allMovies.find(({title}) => title === movie.title)
+
+    if (duplicate) {
+      throw new Error('Movie with this title already exists')
+    }
 
     const id = Date.now()
 
@@ -35,7 +51,7 @@ const MovieModule = ({
     })
 
     await database.save(movieToSave)
-    return movieToSave
+    return Promise.resolve(movieToSave)
   }
 
   const getTotalRuntime = async () => {

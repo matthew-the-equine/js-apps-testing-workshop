@@ -11,7 +11,7 @@ import MovieModule from './movieModule'
 describe.only(`Minimal Setup`, () => {
   it(`should save sample movie`, async () => {
     // given
-    const database = { save: jest.fn(() => Promise.resolve()) }
+    const database = { save: jest.fn(() => Promise.resolve()), getAll: jest.fn(() => Promise.resolve([])) }
     const posterApi = { save: jest.fn(() => Promise.resolve()) }
 
     // when
@@ -30,7 +30,7 @@ describe.only(`Minimal Setup`, () => {
   it(`should save sample movie and get poster if not defined`, async () => {
     // given
     const posterApi = { getPoster: () => Promise.resolve('url') }
-    const database = { save: jest.fn(() => Promise.resolve()) }
+    const database = { save: jest.fn(() => Promise.resolve()), getAll: jest.fn(() => Promise.resolve([])) }
 
     // when
     const { poster, ...movieWithoutPoster } = goodMovie
@@ -48,7 +48,7 @@ describe.only(`Minimal Setup`, () => {
   it(`should save sample movie and get poster if not defined`, async () => {
     // given
     const posterApi = { getPoster: () => Promise.resolve('url') }
-    const database = { save: jest.fn(() => Promise.resolve()) }
+    const database = { save: jest.fn(() => Promise.resolve()), getAll: jest.fn(() => Promise.resolve([])) }
 
     // when
     const { poster, ...movieWithoutPoster } = goodMovie
@@ -82,8 +82,8 @@ describe.only(`Minimal Setup`, () => {
       posterApi,
     })
     await movieModule.addMovie(movieWithoutPoster)
-    await movieModule.addMovie(movieWithoutPoster)
-    await movieModule.addMovie(movieWithoutPoster)
+    await movieModule.addMovie({ ...movieWithoutPoster, title: 'Lego Batman' })
+    await movieModule.addMovie({ ...movieWithoutPoster, title: 'Blade Runner' })
     const totalTime = await movieModule.getTotalRuntime()
 
     // then
@@ -113,10 +113,10 @@ describe.only(`Minimal Setup`, () => {
     })
 
     await movieModule.addMovie(movieWithoutPoster)
-    await movieModule.addMovie({ ...movieWithoutPoster, director: 'Peter Jackson'})
-    await movieModule.addMovie({ ...movieWithoutPoster, director: 'Steven Spielberg'})
-    await movieModule.addMovie({ ...movieWithoutPoster, director: 'Peter Jackson'})
-    await movieModule.addMovie({ ...movieWithoutPoster, director: 'Peter Jackson'})
+    await movieModule.addMovie({ ...movieWithoutPoster, title: 'LOTR 1', director: 'Peter Jackson'})
+    await movieModule.addMovie({ ...movieWithoutPoster, title: 'Jurassic Park', director: 'Steven Spielberg'})
+    await movieModule.addMovie({ ...movieWithoutPoster, title: 'LOTR 2', director: 'Peter Jackson'})
+    await movieModule.addMovie({ ...movieWithoutPoster, title: 'LOTR 3', director: 'Peter Jackson'})
     const favoriteDirector = await movieModule.getFavoriteDirector()
 
     // then
@@ -154,8 +154,35 @@ describe.only(`Minimal Setup`, () => {
     expect(addingBadMovie()).rejects.toThrow(new Error('This is not a good movie'))
   })
 
+  // 🦖 Exercise: is it validated correctly?
+  it(`should validate dupliacted movies`, async () => {
+    // given
+    const movies = []
+    const posterApi = { getPoster: () => Promise.resolve('url') }
+    const database = {
+      save: jest.fn(movie => {
+        movies.push(movie)
+        return Promise.resolve()
+      }),
+      getAll: jest.fn(() => Promise.resolve(movies)),
+    }
+
+    // when
+    const movieModule = MovieModule({
+      database,
+      posterApi,
+    })
+
+    await movieModule.addMovie(goodMovie)
+    const addingDuplicatedMovie = () => movieModule.addMovie(goodMovie)
+
+    // then
+    const { id } = database.save.mock.calls[0][0]
+    expect(Number.isInteger(id)).toEqual(true)
+    expect(addingDuplicatedMovie()).rejects.toThrow(new Error('Movie with this title already exists'))
+  })
+
   // TODO: Add examples on how to refactor
-  // TODO: check if movie already exist and throw exception
   // TODO: calculate favorite genre when adding multiple movies
   // TODO: calculate total time watched based on director and genre
   // TODO: documentary movies should be saved differently
