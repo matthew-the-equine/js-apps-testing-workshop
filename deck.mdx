@@ -1,0 +1,391 @@
+import { themes } from 'mdx-deck'
+
+export const theme = themes.swiss
+
+# Why bother writing tests?
+
+---
+
+> The only constant is change
+
+---
+
+## 1. Mindset level
+
+---
+
+> **Quality assurance shouldn't find anything**
+
+- Take responsibility for your inadequacies
+- Take ownership for the work you do
+- Minimize the number of bugs you create - constantly
+
+---
+
+The best role for QA is to act as specifiers and characterizers [Clean Coder]
+
+- specifiers - gather the requirements from business and translate them into tests that describe to developers how the system should behave
+- characterizers - characterize the true behavior of the system and report that to development and business
+
+---
+
+## 2. Theoretical level
+
+---
+
+Cost of fixing defects
+
+[http://www.agilemodeling.com/essays/costOfChange.htm](http://www.agilemodeling.com/essays/costOfChange.htm)
+
+---
+
+## 3. Pragmatic
+
+---
+
+### Communication tool
+
+The main purpose of tests is communication and specification
+
+Testing is a bonus thing
+
+### Confidence / Eliminate the fear of changing things
+
+Safety net for code changes
+
+### Allow using Continuous Delivery
+
+---
+
+## [XP]
+
+You test because if you don't test, you don't know when you are done coding
+
+You listen because if you don't listen, you don't know what to code or what to test
+
+You design so you can keep coding and testing and listening indefinitely
+
+---
+
+## "... you have nothing to lose but your bugs" - [GOOS]
+
+---
+
+# Structure of a unit test
+
+---
+
+## Example 01.dbModule.test.js
+
+---
+
+## Structure
+
+describe, it, test
+
+GWT
+
+before
+
+after
+
+---
+
+## Test one isolated thing
+
+"One coherent assertion"
+
+Test one feature
+
+If you are testing two features - break the test down
+
+---
+
+## "Start Testing with the Simplest Success Case" [GOOS]
+
+---
+
+## Test negative parts too
+
+---
+
+## Test Behavior, not methods (BDD style)
+
+Focus on testing the features, behavior, not the API methods
+
+You don't want to change the test description every time you add a parameter to the function
+
+Ask yourself: is it a technical test or business test?
+
+---
+
+## Pick your naming style
+
+Example:
+
+`should connect to a database when connection string is provided`
+
+`describe('apiCall', describe('succeeds', it('when ...)))`
+
+---
+
+## 🚨🚨🚨 Test should be independent 🚨🚨🚨
+
+Example
+
+---
+
+## Learning method WTFT
+
+---
+
+## 🦖 Exercise
+
+🚨 Never open the "final" folder.
+
+🚨 Disable gitlens!
+
+👉 02.db.test.js
+
+---
+
+# Testing pyramid
+
+[https://watirmelon.blog/testing-pyramids/](https://watirmelon.blog/testing-pyramids/)
+
+---
+
+## It all depends
+
+🤷
+
+---
+
+## Static code analysis
+
+ESLint + Prettier + TS
+
+---
+
+## Unit
+
+💡 Make sure that a certain unit (aka subject under test) of your codebase works as intended
+
+---
+
+## What is an unit?
+
+You define it
+
+Function / Method / Class / Module / Combination of functions
+
+The thing you put in the `describe` function
+
+---
+
+## Solitary vs Sociable
+
+![](https://martinfowler.com/bliki/images/unitTest/isolate.png)
+
+---
+
+Make no attempt to go solitary unless communicating with the collaborators is awkward
+
+---
+
+## 🐺 Grey area number 1
+
+---
+
+## Integration
+
+💡 Make sure that the integration of your application with all the parts that live outside of your application work as intended
+
+💡 Integration tests determine if independently developed units of software work correctly when they are connected to each other. [Fowler]
+
+---
+
+For some people, integration testing is a very broad activity that tests through a lot of different parts of your entire system. For me it's a rather narrow thing, only testing the integration with one external part at a time.
+
+Some call them integration tests, some refer to them as component tests, some prefer the term service test.
+
+[Fowler]
+
+---
+
+📝 Draw an example
+
+---
+
+There are lots of useful integration testing tools that throttle network bandwidth, introduce network lag, produce network errors, and otherwise test lots of other conditions that are impossible to test using unit tests which mock away the communication layer.
+
+[Fowler]
+
+---
+
+Downside to mocking external dependencies: How can we ensure that the fake server we set up behaves like the real server?
+
+With the current implementation, the separate service could change its API and our tests would still pass.
+
+A solution to this dilemma: Running contract tests against the fake and the real server ensures that the fake we use in our integration tests is a faithful test double.
+
+[Fowler]
+
+---
+
+## 🐺 Grey area number 2
+
+---
+
+## E2E / functional / acceptance
+
+---
+
+### 💡 Functional - functional testing is a quality assurance process and a type of black-box testing that bases its test cases on the specifications of the software component under test. [Wikipedia]
+
+Functional tests are written from the user’s perspective and focus on system behavior that users are interested in.
+
+### 💡 Acceptance - the functional testing of a user story by the software development team during the implementation phase [Wikipedia]
+
+Used in Aglile, mostly XP
+
+---
+
+#### 💡 Ensure that the units work together as a whole system
+
+#### 💡 Translate requirements to tests
+
+  1. Use DSL like [cucumber.io](https://cucumber.io/)
+  2. Use JavaScript
+
+---
+
+E2E testing often means driving your tests through the user interface. The inverse is not true.
+
+You can unit test React components
+
+---
+
+UI aka clickable tests
+- Fail for unexpected reasons
+- Harder to set up
+- Browser quirks
+- Timing issues
+- Animations
+- Require a lot of maintenance
+- Run pretty slowly
+- Sometimes impossible to run locally
+  - Microservices
+
+---
+
+👉 "REST API or a command line interface is as much of a user interface as a fancy web user interface."
+
+API:
+- More reliable
+- A lot faster
+
+---
+
+### Due to the high maintenance cost, you should aim to reduce the number of end-to-end tests to a bare minimum
+
+Keep GUI tests to a minimum. They are fragile because the GUI is volatile. The more GUI tests you have the less likely you are to keep them. [Clean Coder]
+
+👍 Just a rule of thumb
+
+Example: validation
+
+---
+
+👍 Implement the high-value/core-value test for the interactions users will have with your application
+
+---
+
+👮 Do not repeat lower-level (unit, integration) test on the higher-level
+
+---
+
+## Manual
+
+👏
+
+---
+
+Manual
+
+E2E / functional / acceptance
+
+🐺 Grey area number 2 / example
+
+Integration
+
+🐺 Grey area number 1 / example
+
+Unit
+
+Static code analysis: ESLint + Prettier + TS
+
+---
+
+[GOOS]
+
+- unit - do our objects do the right thing, are they convenient to work with?
+- integration - does our code works against code we can't change?
+- acceptance - does the whole system work?
+  - e2e api
+  - e2e gui
+
+---
+
+## Contract
+
+  Snapshot / https://kentcdodds.com/blog/effective-snapshot-testing
+
+---
+
+## Exploratory
+
+Try to break things, provoke issues and errors
+
+Try to understand how things work
+
+Example: API
+
+Exploratory testing is particularly suitable if requirements and specifications are incomplete [Wikipedia]
+
+---
+
+## Smoke/Sanity testing
+
+Just check if the page renders 🤷
+
+---
+
+## Regression
+
+Regression Testing is nothing but a full or partial selection of already executed test cases which are re-executed to ensure existing functionalities work fine
+
+---
+
+## Non-functional
+
+Performance
+
+Security
+
+---
+
+## Usability testing
+
+Do users know how to use the app?
+
+---
+
+## Naming:
+
+- 👍 Find terms that work for you and your team
+- 👍 Be clear about the different types of tests that you want to write.
+- 👍 Agree on the naming in your team and find consensus on the scope of each type of test
+- 👍 Get this consistent within your team/organization
+
+---
