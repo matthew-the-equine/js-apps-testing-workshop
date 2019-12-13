@@ -1,6 +1,9 @@
 // Example: Test setup powinien zawierać minimalną wymaganą ilość potrzebną do przeprowadzenia testu
 
-import { goodMovie as sampleMovie } from './movie'
+import {
+  goodMovie,
+  badMovie,
+} from './movie'
 import MovieModule from './movieModule'
 
 // 👉 Library of movies produced in USA
@@ -16,12 +19,12 @@ describe.only(`Minimal Setup`, () => {
     await MovieModule({
       database,
       posterApi,
-    }).addMovie(sampleMovie)
+    }).addMovie(goodMovie)
 
     // then
     const { id, ...movieProps } = database.save.mock.calls[0][0]
     expect(Number.isInteger(id)).toEqual(true)
-    expect(movieProps).toEqual({ poster: 'url', ...sampleMovie })
+    expect(movieProps).toEqual({ poster: 'url', ...goodMovie })
   })
 
   it(`should save sample movie and get poster if not defined`, async () => {
@@ -30,7 +33,7 @@ describe.only(`Minimal Setup`, () => {
     const database = { save: jest.fn(() => Promise.resolve()) }
 
     // when
-    const { poster, ...movieWithoutPoster } = sampleMovie
+    const { poster, ...movieWithoutPoster } = goodMovie
     await MovieModule({
       database,
       posterApi,
@@ -48,7 +51,7 @@ describe.only(`Minimal Setup`, () => {
     const database = { save: jest.fn(() => Promise.resolve()) }
 
     // when
-    const { poster, ...movieWithoutPoster } = sampleMovie
+    const { poster, ...movieWithoutPoster } = goodMovie
     await MovieModule({
       database,
       posterApi,
@@ -73,7 +76,7 @@ describe.only(`Minimal Setup`, () => {
     }
 
     // when
-    const { poster, ...movieWithoutPoster } = sampleMovie
+    const { poster, ...movieWithoutPoster } = goodMovie
     const movieModule = MovieModule({
       database,
       posterApi,
@@ -103,7 +106,7 @@ describe.only(`Minimal Setup`, () => {
     }
 
     // when
-    const { poster, ...movieWithoutPoster } = sampleMovie
+    const { poster, ...movieWithoutPoster } = goodMovie
     const movieModule = MovieModule({
       database,
       posterApi,
@@ -123,7 +126,35 @@ describe.only(`Minimal Setup`, () => {
     expect(favoriteDirector).toEqual('Peter Jackson')
   })
 
-  // TODO validate it doesn't pass Rian Johnson as a director or writer of Star Wars
+  // 🦖 Exercise: is it validated correctly?
+  it(`should validate bad movies when adding a movie`, async () => {
+    // given
+    const movies = []
+    const posterApi = { getPoster: () => Promise.resolve('url') }
+    const database = {
+      save: jest.fn(movie => {
+        movies.push(movie)
+        return Promise.resolve()
+      }),
+      getAll: jest.fn(() => Promise.resolve(movies)),
+    }
+
+    // when
+    const movieModule = MovieModule({
+      database,
+      posterApi,
+    })
+
+    await movieModule.addMovie(goodMovie)
+    const addingBadMovie = () => movieModule.addMovie(badMovie)
+
+    // then
+    const { id } = database.save.mock.calls[0][0]
+    expect(Number.isInteger(id)).toEqual(true)
+    expect(addingBadMovie()).rejects.toThrow(new Error('This is not a good movie'))
+  })
+
+  // TODO: Add examples on how to refactor
   // TODO: check if movie already exist and throw exception
   // TODO: calculate favorite genre when adding multiple movies
   // TODO: calculate total time watched based on director and genre
