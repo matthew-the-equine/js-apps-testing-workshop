@@ -15,7 +15,7 @@ describe.skip('forecast periodic runner', () => {
     // expect(value).toEqual('hello there')
   })
 
-  // 👉 TODO: Make the test pass
+  // 🦖 Exercise: Make the test pass
   it('should periodically run a callback', () => {
     // given
     // 💡 Note: This is how you mock in Jest

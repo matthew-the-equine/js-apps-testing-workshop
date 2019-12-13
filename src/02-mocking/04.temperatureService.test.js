@@ -100,7 +100,7 @@ describe.skip(`temperatureService`, () => {
       // expect.fail('the test should throw an error!')
     })
 
-    it.todo(`(optional): Test what happens when the authorization header doesn't match`)
-    it.todo(`(optional): Implement the actual service and replace the mock, is it possible to test everything now?`)
+    it.todo(`(😎 challenge): Test what happens when the authorization header doesn't match`)
+    it.todo(`(😎 challenge): Implement the actual service and replace the mock, is it possible to test everything now?`)
   })
 })

@@ -3,7 +3,7 @@ import temperatureService from './weatherForecast/temperatureService'
 
 jest.mock('superagent')
 
-test.skip('should fetch', async () => {
+test.skip('Example: should fetch', async () => {
   const logger = {
     info: () => null,
   }
