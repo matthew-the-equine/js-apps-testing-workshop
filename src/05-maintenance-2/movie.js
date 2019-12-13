@@ -1,0 +1,73 @@
+// 🦖 Exercise 1:
+// isn't it too big?
+// do we need it to be this big?
+export const goodMovie = {
+  'title': 'Goodfellas',
+  'year': '1990',
+  'rated': 'R',
+  'released': '21 Sep 1990',
+  'runtime': '146 min',
+  'genre': 'Biography, Crime, Drama',
+  'director': 'Martin Scorsese',
+  'writer': 'Nicholas Pileggi (book), Nicholas Pileggi (screenplay), Martin Scorsese (screenplay)',
+  'actors': 'Robert De Niro, Ray Liotta, Joe Pesci, Lorraine Bracco',
+  'plot': 'The story of Henry Hill and his life in the mob, covering his relationship with his wife Karen Hill and his mob partners Jimmy Conway and Tommy DeVito in the Italian-American crime syndicate.',
+  'language': 'English, Italian',
+  'country': 'USA',
+  'awards': 'Won 1 Oscar. Another 43 wins & 37 nominations.',
+  'poster': 'https://m.media-amazon.com/images/M/MV5BY2NkZjEzMDgtN2RjYy00YzM1LWI4ZmQtMjIwYjFjNmI3ZGEwXkEyXkFqcGdeQXVyNzkwMjQ5NzM@._V1_SX300.jpg',
+  'ratings': [
+    { 'source': 'Internet Movie Database', 'value': '8.7/10' },
+    { 'source': 'Rotten Tomatoes', 'value': '96%' },
+    { 'source': 'Metacritic', 'value': '89/100' },
+  ],
+  'metascore': '89',
+  'imdbRating': '8.7',
+  'imdbVotes': '933,488',
+  'imdbID': 'tt0099685',
+  'type': 'movie',
+  'dvd': '26 Mar 1997',
+  'boxOffice': 'N/A',
+  'production': 'Warner Bros.',
+  'website': 'N/A',
+}
+
+export const badMovie = {
+  'title': 'Star Wars: Episode VIII - The Last Jedi',
+  'year': '2017',
+  'rated': 'PG-13',
+  'released': '15 Dec 2017',
+  'runtime': '152 min',
+  'genre': 'Action, Adventure, Fantasy, Sci-Fi',
+  'director': 'Rian Johnson',
+  'writer': 'Rian Johnson, George Lucas (based on characters created by)',
+  'actors': 'Mark Hamill, Carrie Fisher, Adam Driver, Daisy Ridley',
+  'plot': 'Rey develops her newly discovered abilities with the guidance of Luke Skywalker, who is unsettled by the strength of her powers. Meanwhile, the Resistance prepares for battle with the First Order.',
+  'language': 'English',
+  'country': 'USA',
+  'awards': 'Nominated for 4 Oscars. Another 12 wins & 71 nominations.',
+  'poster': 'https://m.media-amazon.com/images/M/MV5BMjQ1MzcxNjg4N15BMl5BanBnXkFtZTgwNzgwMjY4MzI@._V1_SX300.jpg',
+  'ratings': [
+    {
+      'source': 'Internet Movie Database',
+      'value': '7.1/10',
+    },
+    {
+      'source': 'Rotten Tomatoes',
+      'value': '91%',
+    },
+    {
+      'source': 'Metacritic',
+      'value': '85/100',
+    },
+  ],
+  'metascore': '85',
+  'imdbRating': '7.1',
+  'imdbVotes': '487,996',
+  'imdbID': 'tt2527336',
+  'type': 'movie',
+  'dvd': '27 Mar 2018',
+  'boxOffice': '$619,117,636',
+  'production': 'Walt Disney Pictures',
+  'website': 'N/A',
+}
