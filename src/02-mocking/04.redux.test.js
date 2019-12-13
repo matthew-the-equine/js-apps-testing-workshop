@@ -19,6 +19,8 @@ import { emojis } from './weatherForecast/emojis'
 const mockStore = configureMockStore()
 
 // 💡 https://testing-library.com/docs/dom-testing-library/cheatsheet
+
+// 💡 Remember to unskip!
 describe.skip('redux tests', () => {
   it('Example: should render rainfall emoji based on fake global state', () => {
     // given

@@ -4,6 +4,7 @@ const forecastPeriodicRunner = runForecast => {
   }, 1000)
 }
 
+// 💡 Remember to unskip!
 describe.skip('forecast periodic runner', () => {
   // 💡 Example:
   it('should said hello', () => {

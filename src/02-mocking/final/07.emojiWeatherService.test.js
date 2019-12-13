@@ -1,7 +1,7 @@
 import emojiWeatherService from '../weatherForecast/emojiWeatherService'
 import { emojis } from '../weatherForecast/emojis'
 
-describe(`emojiWeatherService (final)`, () => {
+describe.skip(`emojiWeatherService (final)`, () => {
   it(`should should show default temperature emoji`, async () => {
     // given
     const runForecast = emojiWeatherService({

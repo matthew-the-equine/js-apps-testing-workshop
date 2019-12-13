@@ -18,7 +18,7 @@ const examCalculator = (dateProvider) => ({
 // How can you make it pass regardless of date and time?
 // 💡 Note: does this help? https://github.com/facebook/jest/issues/2234
 
-describe.skip('examCalculator', () => {
+describe.skip('examCalculator (final)', () => {
   it(`should sum when it's before 9:00`, () => {
     // given
     const a = 1

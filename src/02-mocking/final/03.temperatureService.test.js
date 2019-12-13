@@ -12,7 +12,7 @@ const mockServer = () => nock(host)
   // .log(console.log) // uncomment if needed
   .post(endpoint)
 
-describe.skip(`temperatureService`, () => {
+describe.skip(`temperatureService (final)`, () => {
   beforeEach(() => {
     nock.disableNetConnect()
   })
