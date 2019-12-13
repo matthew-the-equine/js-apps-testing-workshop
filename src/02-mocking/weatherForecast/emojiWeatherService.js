@@ -1,5 +1,6 @@
 import seasonCalculator from './seasonCalculator'
 import wait from './wait'
+import { emojis } from './emojis'
 
 const tenSeconds = 10000
 
@@ -42,24 +43,24 @@ const emojiWeatherService = ({
   const season = seasonCalculator(date)
 
   const seasonEmoji = ({
-    'spring': '🍃',
-    'summer': '🌻',
-    'fall': '🍂',
-    'winter': '☃️',
+    'spring': emojis.spring,
+    'summer': emojis.summer,
+    'fall': emojis.fall,
+    'winter': emojis.winter,
   })[season]
 
   const { response: forecastResponse } = await forecastService()
 
   const forecastEmoji = ({
-    'rainfall': '🌧️',
-    'stormWithRain': '⛈️',
-    'snowfall': '🌨️',
+    'rainfall': emojis.rainfall,
+    'stormWithRain': emojis.stormWithRain,
+    'snowfall': emojis.snowfall,
   })[forecastResponse]
 
   const rainfallResponse = await getRainfallResponse(rainfallService, forecastResponse)
   const rainfallLevel = rainfallResponse ? ` [${rainfallResponse.toString()}mm]` : ''
 
-  return `${seasonEmoji} [${localDate}] / ${forecastEmoji}${rainfallLevel} / 🌡️ [20*C 🤗]`
+  return `${seasonEmoji} [${localDate}] / ${forecastEmoji}${rainfallLevel} / 🌡️ [20*C ${emojis.comfy}]`
 }
 
 export default emojiWeatherService

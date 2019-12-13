@@ -1,38 +1,8 @@
+import emojiWeatherService from '../weatherForecast/emojiWeatherService'
+import { emojis } from '../weatherForecast/emojis'
 
-// 🌡️ Temperature:
-// 🥶 temp <= 0
-// 🤧 temp > 0 && temp <= 12
-// 🤗 temp > 12 && temp <= 25
-// 🙃 temp > 25 && temp <= 30
-// 🥵 temp > 30
-
-// 💧 Rainfall (mm/h) (light, moderate, heavy, violent):
-// rainfall === 0
-// rainfall < 2.5
-// rainfall >= 2.5 && rainfall < 10
-// rainfall >= 10 && rainfall < 50
-// rainfall >= 50
-
-// TODO use calendar emoji 📅
-
-import emojiWeatherService from './weatherForecast/emojiWeatherService'
-
-// Season:
-const springEmoji = '🍃'
-const summerEmoji = '🌻'
-const fallEmoji = '🍂'
-const winterEmoji = '☃️'
-
-// General:
-const sunnyEmoji = '🌞'
-const snowfallEmoji = '🌨️'
-const rainfallEmoji =  '🌧️'
-const stormWithRainEmoji = '⛈️'
-const stormWithoutRainEmoji = '🌩️'
-
-// 💡 Note: The service implementation is stupid sometimes, it mimics the real life examples
-describe(`emojiWeatherService`, () => {
-  it(`should allow subscribing to the weather forcast and show default emojis`, async () => {
+describe(`emojiWeatherService (final)`, () => {
+  it(`should should show default temperature emoji`, async () => {
     // given
     const runForecast = emojiWeatherService({
       dateService: () => new Date(),
@@ -48,8 +18,6 @@ describe(`emojiWeatherService`, () => {
 
     const optimalTemperature = '🌡️ [20*C 🤗]'
 
-    expect(forecast.includes(winterEmoji)).toEqual(true) // TODO: a mistake to fix
-    // expect(forecast.includes(sunnyEmoji)).toEqual(true) // TODO: removed because other test covers it
     expect(forecast.includes(optimalTemperature)).toEqual(true)
   })
 
@@ -69,7 +37,7 @@ describe(`emojiWeatherService`, () => {
     // then
     console.log({ forecast })
 
-    expect(forecast.includes(summerEmoji)).toEqual(true)
+    expect(forecast.includes(emojis.summer)).toEqual(true)
   })
 
   it(`should show forecast emoji based on the answer from the forecast service`, async () => {
@@ -87,12 +55,12 @@ describe(`emojiWeatherService`, () => {
     // then
     console.log({ forecast })
 
-    expect(forecast.includes(snowfallEmoji)).toEqual(true)
+    expect(forecast.includes(emojis.snowfall)).toEqual(true)
   })
 
   ;[
-    { forecastResponse: 'rainfall', expectedEmoji: rainfallEmoji },
-    { forecastResponse: 'stormWithRain', expectedEmoji: stormWithRainEmoji },
+    { forecastResponse: 'rainfall', expectedEmoji: emojis.rainfall },
+    { forecastResponse: 'stormWithRain', expectedEmoji: emojis.stormWithRain },
   ].forEach(({ forecastResponse, expectedEmoji }) => {
     it(`should show rainfall levels when the forecast is ${forecastResponse}`, async () => {
       // given
@@ -115,9 +83,9 @@ describe(`emojiWeatherService`, () => {
   })
 
   ;[
-    { forecastResponse: 'sunny', expectedEmoji: sunnyEmoji },
-    { forecastResponse: 'stormWithoutRain', expectedEmoji: stormWithoutRainEmoji },
-    { forecastResponse: 'snowfall', expectedEmoji: snowfallEmoji },
+    { forecastResponse: 'sunny', expectedEmoji: emojis.sunny },
+    { forecastResponse: 'stormWithoutRain', expectedEmoji: emojis.stormWithoutRain },
+    { forecastResponse: 'snowfall', expectedEmoji: emojis.snowfall },
   ].forEach(({ forecastResponse, expectedEmoji }) => {
     it(`should not show rainfall levels when the forecast is ${forecastResponse}`, async () => {
       // given
@@ -135,6 +103,8 @@ describe(`emojiWeatherService`, () => {
       const rainfallLevelsText = 'mm]'
       expect(forecast.includes(rainfallLevelsText)).not.toEqual(true)
       expect(rainfallService.mock.calls.length).toEqual(0)
+      // 🦖 How to make this pass?
+      // expect(forecast.includes(`${expectedEmoji}`)).toEqual(true)
     })
   })
 
@@ -240,13 +210,14 @@ describe(`emojiWeatherService`, () => {
     expect(forecast.includes('[10mm]')).toEqual(true)
   })
 
+  it.todo('Exercise: not every emoji is checked and it the code works, implement missing test cases')
+
   it.todo('test error responses')
   it.todo('temperature response')
   it.todo('show test without fake timers')
   it.todo('or maybe forecastService should make decisions randomly / separate test suite?')
   it.todo('add database')
   it.todo('add service authentication !')
-  it.todo('not every emoji is checked and it works :wink:')
   it.todo('should handle rainfall service timeouts')
 
   it.todo('Exercise: move the conditional logic of checking rainfall to the rainfallService itself')
@@ -255,3 +226,22 @@ describe(`emojiWeatherService`, () => {
   it.todo('Exercise: forecastService should make decisions based on date but you cant see it in test :) / separate test suite?')
   it.todo('Advanced Exercise: there are no real services :) you might want to implement them... test first #tddftw http://www.extremeprogramming.org/rules/testfirst.html')
 })
+
+// Waiting for better times:
+
+// 🌡️ Temperature:
+// 🥶 temp <= 0
+// 🤧 temp > 0 && temp <= 12
+// 🤗 temp > 12 && temp <= 25
+// 🙃 temp > 25 && temp <= 30
+// 🥵 temp > 30
+
+// 💧 Rainfall (mm/h) (light, moderate, heavy, violent):
+// rainfall === 0
+// rainfall < 2.5
+// rainfall >= 2.5 && rainfall < 10
+// rainfall >= 10 && rainfall < 50
+// rainfall >= 50
+
+// TODO use calendar emoji 📅
+
