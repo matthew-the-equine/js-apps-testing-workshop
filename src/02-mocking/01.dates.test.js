@@ -20,6 +20,9 @@ const examCalculator = () => ({
 // 💡 Remember to unskip!
 describe.skip('examCalculator', () => {
   it(`should sum when it's before 9:00`, () => {
+    // delete when implementing
+    throw(new Error('not implemented yet'))
+
     // given
     const a = 1
     const b = 3
@@ -32,6 +35,9 @@ describe.skip('examCalculator', () => {
   })
 
   it(`should throw error when it's after 9:00`, () => {
+    // delete when implementing
+    throw(new Error('not implemented yet'))
+
     // when
     const suming = () => examCalculator().sum(1, 1)
 
