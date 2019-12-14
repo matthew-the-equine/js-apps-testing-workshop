@@ -4,10 +4,8 @@
 // 🦖 Your job is to replace the comments with actual code, have fun!
 // 💡 Remember to unskip!
 describe.skip('db', () => {
-  it(`should create empty collection when it doesn't exist`, () => {
-    // delete when implementing
-    throw(new Error('not implemented yet'))
-
+  // 💡 Remember to unskip!
+  it.skip(`should create empty collection when it doesn't exist`, () => {
     // given
     // you are connected to a database
 
@@ -23,10 +21,8 @@ describe.skip('db', () => {
     // you'll learn more about them later
   })
 
-  it(`should throw an error when accessing collection without name`, () => {
-    // delete when implementing
-    throw(new Error('not implemented yet'))
-
+  // 💡 Remember to unskip!
+  it.skip(`should throw an error when accessing collection without name`, () => {
     // given
     // you are connected to a database
 
@@ -37,10 +33,8 @@ describe.skip('db', () => {
     // a 'provide collection name!' error is thrown
   })
 
-  it(`should return the same collection when accessing it for the second time`, () => {
-    // delete when implementing
-    throw(new Error('not implemented yet'))
-
+  // 💡 Remember to unskip!
+  it.skip(`should return the same collection when accessing it for the second time`, () => {
     // given
     // you are connected to a database
     // you got access to the 'user' collection
@@ -55,10 +49,8 @@ describe.skip('db', () => {
     // 💡 Note: you need to call `collection()` twice
   })
 
-  it(`should insert entity to a collection`, () => {
-    // delete when implementing
-    throw(new Error('not implemented yet'))
-
+  // 💡 Remember to unskip!
+  it.skip(`should insert entity to a collection`, () => {
     // given
     // you are connected to a database
     // you got access to the 'user' collection
@@ -71,10 +63,8 @@ describe.skip('db', () => {
     // calling `findAll` would find it
   })
 
-  it(`should allow finding entities by id`, () => {
-    // delete when implementing
-    throw(new Error('not implemented yet'))
-
+  // 💡 Remember to unskip!
+  it.skip(`should allow finding entities by id`, () => {
     // given
     // you are connected to a database
     // you got access to the 'user' collection
@@ -88,10 +78,8 @@ describe.skip('db', () => {
     // entity you found is the same as you expected
   })
 
-  it(`should allow removing entities by id`, () => {
-    // delete when implementing
-    throw(new Error('not implemented yet'))
-
+  // 💡 Remember to unskip!
+  it.skip(`should allow removing entities by id`, () => {
     // given
     // you are connected to a database
     // you got access to the 'user' collection
@@ -105,10 +93,8 @@ describe.skip('db', () => {
     // entity can no longer be found
   })
 
-  it(`should allow truncating collection`, () => {
-    // delete when implementing
-    throw(new Error('not implemented yet'))
-
+  // 💡 Remember to unskip!
+  it.skip(`should allow truncating collection`, () => {
     // given
     // you are connected to a database
     // you got access to the 'user' collection
@@ -122,10 +108,8 @@ describe.skip('db', () => {
     // the collection is empty
   })
 
-  it(`should clean up collections when closing connection`, () => {
-    // delete when implementing
-    throw(new Error('not implemented yet'))
-
+  // 💡 Remember to unskip!
+  it.skip(`should clean up collections when closing connection`, () => {
     // given
     // you are connected to a database
     // you got access to the 'user' collection

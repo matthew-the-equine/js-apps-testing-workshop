@@ -19,10 +19,8 @@ const examCalculator = () => ({
 // 💡 Note: does this help? https://github.com/facebook/jest/issues/2234
 // 💡 Remember to unskip!
 describe.skip('examCalculator', () => {
-  it(`should sum when it's before 9:00`, () => {
-    // delete when implementing
-    throw(new Error('not implemented yet'))
-
+  // 💡 Remember to unskip!
+  it.skip(`should sum when it's before 9:00`, () => {
     // given
     const a = 1
     const b = 3
@@ -34,14 +32,12 @@ describe.skip('examCalculator', () => {
     expect(sum).toEqual(4)
   })
 
-  it(`should throw error when it's after 9:00`, () => {
-    // delete when implementing
-    throw(new Error('not implemented yet'))
-
+  // 💡 Remember to unskip!
+  it.skip(`should throw error when it's after 9:00`, () => {
     // when
-    const suming = () => examCalculator().sum(1, 1)
+    const summing = () => examCalculator().sum(1, 1)
 
     // then
-    expect(suming).toThrow('The exam is over!')
+    expect(summing).toThrow('The exam is over!')
   })
 })
