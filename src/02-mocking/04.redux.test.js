@@ -21,7 +21,7 @@ const mockStore = configureMockStore()
 // 💡 https://testing-library.com/docs/dom-testing-library/cheatsheet
 
 // 💡 Remember to unskip!
-describe.skip('redux tests', () => {
+describe.only('redux tests', () => {
   it('Example: should render rainfall emoji based on fake global state', () => {
     // given
     const store = mockStore({
@@ -58,7 +58,8 @@ describe.skip('redux tests', () => {
     // 🤷
   })
 
-  it('Exercise: should render rainfall emoji based on real global state', async () => {
+  // 💡 Remember to unskip!
+  it.skip('Exercise: should render rainfall emoji based on real global state', async () => {
     // given
     const actionLoggerMiddleware = store => next => action => next(action)
 
