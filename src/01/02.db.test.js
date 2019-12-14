@@ -4,8 +4,7 @@
 // 🦖 Your job is to replace the comments with actual code, have fun!
 // 💡 Remember to unskip!
 describe.skip('db', () => {
-  // 💡 Remember to unskip!
-  it.skip(`should create empty collection when it doesn't exist`, () => {
+  it.only(`should create empty collection when it doesn't exist`, () => {
     // given
     // you are connected to a database
 
@@ -21,8 +20,7 @@ describe.skip('db', () => {
     // you'll learn more about them later
   })
 
-  // 💡 Remember to unskip!
-  it.skip(`should throw an error when accessing collection without name`, () => {
+  it(`should throw an error when accessing collection without name`, () => {
     // given
     // you are connected to a database
 
@@ -33,8 +31,7 @@ describe.skip('db', () => {
     // a 'provide collection name!' error is thrown
   })
 
-  // 💡 Remember to unskip!
-  it.skip(`should return the same collection when accessing it for the second time`, () => {
+  it(`should return the same collection when accessing it for the second time`, () => {
     // given
     // you are connected to a database
     // you got access to the 'user' collection
@@ -49,8 +46,7 @@ describe.skip('db', () => {
     // 💡 Note: you need to call `collection()` twice
   })
 
-  // 💡 Remember to unskip!
-  it.skip(`should insert entity to a collection`, () => {
+  it(`should insert entity to a collection`, () => {
     // given
     // you are connected to a database
     // you got access to the 'user' collection
@@ -63,8 +59,7 @@ describe.skip('db', () => {
     // calling `findAll` would find it
   })
 
-  // 💡 Remember to unskip!
-  it.skip(`should allow finding entities by id`, () => {
+  it(`should allow finding entities by id`, () => {
     // given
     // you are connected to a database
     // you got access to the 'user' collection
@@ -78,8 +73,7 @@ describe.skip('db', () => {
     // entity you found is the same as you expected
   })
 
-  // 💡 Remember to unskip!
-  it.skip(`should allow removing entities by id`, () => {
+  it(`should allow removing entities by id`, () => {
     // given
     // you are connected to a database
     // you got access to the 'user' collection
@@ -93,8 +87,7 @@ describe.skip('db', () => {
     // entity can no longer be found
   })
 
-  // 💡 Remember to unskip!
-  it.skip(`should allow truncating collection`, () => {
+  it(`should allow truncating collection`, () => {
     // given
     // you are connected to a database
     // you got access to the 'user' collection
@@ -108,8 +101,7 @@ describe.skip('db', () => {
     // the collection is empty
   })
 
-  // 💡 Remember to unskip!
-  it.skip(`should clean up collections when closing connection`, () => {
+  it(`should clean up collections when closing connection`, () => {
     // given
     // you are connected to a database
     // you got access to the 'user' collection

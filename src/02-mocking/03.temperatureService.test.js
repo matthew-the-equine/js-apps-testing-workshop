@@ -23,7 +23,7 @@ describe.skip(`temperatureService`, () => {
     nock.enableNetConnect()
   })
 
-  it(`should call underlying http service`, async () => {
+  it.only(`should call underlying http service`, async () => {
     // given
     const assert = mockServer().reply(200)
 
@@ -34,8 +34,7 @@ describe.skip(`temperatureService`, () => {
     assert.done()
   })
 
-  // 💡 Remember to unskip!
-  it.skip(`should parse OK 200 response payload`, async () => {
+  it(`should parse OK 200 response payload`, async () => {
     // given
     // const sampleResponse = {
     //   temperature: 44,
@@ -50,8 +49,7 @@ describe.skip(`temperatureService`, () => {
     // response matches sample response
   })
 
-  // 💡 Remember to unskip!
-  it.skip(`should parse Bad Request 400 response payload`, async () => {
+  it(`should parse Bad Request 400 response payload`, async () => {
     // given
     // server responds with Bad Request
     // we have a logger that logs the service errors
@@ -78,8 +76,7 @@ describe.skip(`temperatureService`, () => {
     'ECONNREFUSED',
     'ETIMEDOUT',
   ].forEach(errorCode => {
-    // 💡 Remember to unskip!
-    it.skip(`should parse service unavailable errors: ${errorCode}`, async () => {
+    it(`should parse service unavailable errors: ${errorCode}`, async () => {
       // given
       // server responds with specified error like: { code: errorCode, name: errorCode }
       // 💡 hint: use `replyWithError` nock method
