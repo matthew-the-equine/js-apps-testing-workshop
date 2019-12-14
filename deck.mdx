@@ -625,3 +625,267 @@ This may not be so much that you are testing too many things, but that you have 
 When you are confident the feature/code works as expected 🙃
 
 ---
+
+# Low-level test maintenance
+
+---
+
+## Theory
+
+💡 No tests is better than "no" tests
+
+---
+
+## Theory
+
+- You need to maintain tests
+- "Write the test that you'd want to read" [GOOS]
+- Writing tests is easy
+- Writing readable tests that clearly communicate what's tested might be hard
+  - It depends on how cool your code is
+  - The better the code the better the tests
+  - The better the tests the better the code
+    - That's why TDD is the best if you want to write maintainable code
+
+---
+
+## Rules
+
+👍 Always ask:
+
+- What do I want to check in this test?
+- What is the one thing I need to prove?
+- What's the best way to prove it?
+
+👍 Use business vocabulary everywhere, even in the unit tests
+
+---
+
+## Theory
+
+Clean code principles also apply to tests
+
+---
+
+## Theory
+
+- Test code is as important as production code or even more.
+- Give it the same level of care and attention.
+- "this is only test code" is not a valid excuse to justify sloppy code
+
+---
+
+## You still need to think when writing tests 🙃
+
+Example: copy/paste testing antipattern
+
+---
+
+## Rules
+
+---
+
+### General rules
+
+---
+
+Use "given, when, then" (or "arrange, act, assert") to keep your tests well-structured
+
+---
+
+Don't try to be overly DRY.
+
+- Readability matters.
+- Duplication is okay if it improves readability.
+- Try to find a balance between DRY and DAMP (Descriptive And Meaningful Phrases) code
+- https://stackoverflow.com/a/11837973 DRY vs DAMP
+
+When in doubt use the Rule of Three to decide when to refactor. "Use before reuse"
+
+---
+
+Break up an object (me: function or module) if it becomes too large to test easily,
+or if its test failures become difficult to interpret.
+
+Then unit-test the new parts separately.
+
+[GOOS]
+
+---
+
+### Setup rules
+
+---
+
+Initialize only what is necessary to make the test pass
+
+Setup only what you need
+
+---
+
+Complext setup probably means you fucked up when applying SRP
+
+or
+
+that you are writing integration test.
+
+Both are fine. Just know why ;)
+
+---
+
+Creating production-like mock data
+
+- Object Mother
+- Factories
+- Use Real data / like initialState from the reducer
+- Data builders
+
+---
+
+Keep the test data as close to the implementation as possible
+
+---
+
+Self-Describing Value:
+
+Name variables and constants, even more important than in the production code.
+
+- UNUSED_ID
+- INVALID_ID
+- CORRECT_DATE
+- DATE_IN_THE_PAST
+- SAMPLE_DATE
+
+---
+
+Use test cases
+
+---
+
+### Assertions rules
+
+---
+
+Test one condition per test. This helps you to keep your tests short and easy to reason about
+
+---
+
+! Make sure that each test fails only when its relevant code is broken
+
+Otherwise, we end up with brittle tests that slow down development and inhibit refactoring.
+
+Be precise with assertions to make the test more flexible
+
+Ask yourself: "Do I want this test to fail when...?"
+
+! Specify Precisely What Should Happen and No More [GOOS]
+
+---
+
+Example: assert that string === other string vs string.contains(other string)
+
+Do you really need to test the exception message?
+
+- maybe status code or type?
+- messages change a lot
+- SDD 🤷
+
+---
+
+Emphasize "what" over "how"
+
+Extract small methods to express intent
+
+[https://docs.cypress.io/api/cypress-api/custom-commands.html#Parent-Commands](https://docs.cypress.io/api/cypress-api/custom-commands.html#Parent-Commands)
+
+#example (one of our apps)
+
+Do not overabstract so the code is unreadable
+
+---
+
+### Other things
+
+---
+
+Frameworks can be wrapped to make them testable (express route before)
+
+---
+
+If there are only happy path tests then probably you only need one test that checks the structure
+
+---
+
+It's bad when you expect the test to fail 🔴 and it's green 💚
+
+😱
+
+---
+
+You shouldn't have methods named with 'and','or' and 'but'
+
+---
+
+# Test smells cheatsheet
+
+---
+
+Smells:
+
+- Test names that do not clearly describe the point of each test case and its differences from the other test cases
+- Single test cases that seem to be exercising multiple features
+- Tests with different structure, so the reader cannot skim-read them to understand their intention
+- Tests with lots of code for setting up and handling exceptions, which buries their essential logic
+- Tests that use literal values ("magic numbers") but are not clear about what, if anything, is significant about those values
+
+---
+
+[http://xunitpatterns.com/Book%20Outline.html](http://xunitpatterns.com/Book%20Outline.html)
+
+---
+
+# Tooling
+
+---
+
+# Business value in tests
+
+---
+
+## Tests?
+
+![](data:image/jpeg;base64,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)
+
+---
+
+![https://i.imgflip.com/2lg7jc.jpg](https://i.imgflip.com/2lg7jc.jpg)
+
+---
+
+But really do you really still have doubts?
+
+Or problems explaining why it is important?
+
+---
+
+Don't tell anyone
+
+👉 WTFT
+
+Testing is a part of coding
+
+---
+
+# Random tip and tricks
+
+---
+
+- use snippets
+- test to just start
+- keep a notebook
+- be aware deepEqual vs equal
+
+---
+
+# Problems from the survey
+
