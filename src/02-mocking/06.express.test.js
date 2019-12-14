@@ -24,7 +24,7 @@ const runExpressApp = ({
 
 // 💡 Remember to unskip!
 describe.skip('express app route', () => {
-  it(`should response with 44 when calling with 'C' unit`, () => {
+  it.only(`should response with 44 when calling with 'C' unit`, () => {
     // 💪 just do it
   })
   it(`should response with 111 when calling with 'F' unit`, () => {

@@ -3,7 +3,7 @@ import { emojis } from './weatherForecast/emojis'
 
 // 💡 Remember to unskip!
 describe.skip(`emojiWeatherService`, () => {
-  it(`should should show default temperature emoji`, async () => {
+  it.only(`should should show default temperature emoji`, async () => {
     // given
     const runForecast = emojiWeatherService({
       // setup only what's necessary
@@ -211,4 +211,3 @@ describe.skip(`emojiWeatherService`, () => {
 // rainfall >= 50
 
 // TODO use calendar emoji 📅
-
