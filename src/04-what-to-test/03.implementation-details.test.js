@@ -1,7 +1,8 @@
 import { reducer } from './03._reduxModule'
 
-describe(`TodoReducer`, () => {
-  it(`should add todo`, () => {
+// 💡 Remember to unskip!
+describe.skip(`TodoReducer`, () => {
+  it.only(`should add todo`, () => {
     // given
     const newTodo = { id: 0, name: 'do stuff' }
 
