@@ -389,3 +389,239 @@ Do users know how to use the app?
 - 👍 Get this consistent within your team/organization
 
 ---
+
+# Mocking
+
+---
+
+TODO 🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨
+
+---
+
+# High-level maintenance
+
+---
+
+## Every code is a tech debt
+
+---
+
+## Every code is a tech debt
+
+- Writing and maintaining tests takes time
+- Reading and understanding other people's test takes time
+- Running tests takes time
+- Avoid duplicating tests throughout the different layers of the pyramid
+
+---
+
+## Two rules of thumb:
+
+1. If a higher-level test spots an error and there's no lower-level test failing, you need to write a lower-level test
+2. Push your tests as far down the test pyramid as you can
+
+---
+
+### If a higher-level test spots an error and there's no lower-level test failing, you need to write a lower-level test
+
+The first rule is important because lower-level tests allow you to better narrow down errors and replicate them in an isolated way. They'll run faster and will be less bloated when you're debugging the issue at hand. And they will serve as a good regression test for the future.
+
+[Fowler]
+
+---
+
+### Push your tests as far down the test pyramid as you can
+
+The second rule is important to keep your test suite fast. If you have tested all conditions confidently on a lower-level test, there's no need to keep a higher-level test in your test suite. It just doesn't add more confidence that everything's working.
+
+**You don't test all the conditional logic and edge cases that your lower-level tests already cover in the higher-level test again.**
+
+[Fowler]
+
+---
+
+## Testing controller logic example
+
+03-maintenance-01/01.test.js
+
+---
+
+1. Delete high-level tests that are already covered on a lower level (given they don't provide extra value)
+1.Make sure that the higher-level test focuses on the part that the lower-level tests couldn't cover.
+1. Eliminate tests that don't provide any value
+1. Replace higher-level tests with lower-level tests if possible
+1. Sometimes that's hard, especially if you know that coming up with a test was hard work. Beware of the sunk cost fallacy and hit the delete key. There's no reason to waste more precious time on a test that ceased to provide value.
+
+---
+
+## 💡 All those rules apply to the low-level maintenance
+
+(described later)
+
+---
+
+# What to test?
+
+---
+
+## 💡 No tests is better than no tests
+
+---
+
+## High-level testing strategy - [XP] Testing strategy
+
+- Test things that might break
+- Test things that break the most
+- Test to demonstrate some vital aspect of the software
+- Test business logic first (functional part)
+- Test vital infrastructure parts
+- "Vital" === user-facing infrastructure features
+- Translating exceptions to user responses
+- Important middlewares (cross-cutting concerns)
+- Test things that are reusable first
+- 👍 Don't test the framework/library (!) / było - express route
+- #example: 👍 Don't test trivial code (01.trivial-code.js)
+  - getters
+  - setters
+
+---
+
+> If you decide you really do know better than the team, then you have to make your point as unobtrusively as possible.
+
+> For example, it is far better to suggest a test case that can only be implemented cleanly by fixing the design,
+> than it is to just go and fix the design yourself.
+>
+> But it is a skill to not directly say what you see, but to say it in such a way that the team sees it, too.
+
+> [XP]
+
+---
+
+## How would you test it?
+
+🦖 Exercise
+
+- https://demo.realworld.io/#/
+- https://github.com/gothinkster/react-redux-realworld-example-app
+- https://github.com/gothinkster/node-express-realworld-example-app
+
+---
+
+## Don't spill your guts / Don't test implementation details
+
+👮 🚓 🚨 **One of the biggest mistakes**
+
+🙈 **Root of all evil**
+
+---
+
+![](https://cdn.mos.cms.futurecdn.net/tbZkxWGmK3MxkrwpUwtuNV-1200-80.jpg)
+
+---
+
+How would you test he's alive?
+
+---
+
+## Test public API
+
+### Don't test private functions,
+### methods,
+### components,
+### whatever,
+
+### just don't
+
+---
+
+## Examples
+
+---
+
+## Why?
+
+1. Tests become brittle
+2. Tests that are too close to the production code quickly become annoying
+3. As soon as you refactor your production code your unit tests will break
+  - Refactoring means changing the internal structure of your code without changing the externally visible behavior
+
+---
+
+## Exercise: Test observable behavior instead of implementation details
+
+---
+
+## "Listen to the Tests" [GOOS]
+
+- When something is difficult to test, don't just ask yourself how to test it, but also why is it difficult
+- If it's difficult now, it will be more difficult later
+- It will make hard to change the design
+- The Scout Rule
+- Software Rots
+- Expect the Unexpected when testing
+
+---
+
+## Exercise: 👍 Write test instead of debugging
+
+---
+
+## What is test/code coverage?
+
+---
+
+### 💡 Code coverage is the percentage of lines of code that are executed during an automated test run
+
+- **Function coverage**: how many of the functions defined have been called
+- **Statement coverage**: how many of the statements in the program have been executed
+- **Branches coverage**: how many of the branches of the control structures (if statements for instance) have been executed
+- **Condition coverage**: how many of the boolean sub-expressions have been tested for a true and a false value
+- **Line coverage**: how many of lines of source code have been tested
+
+---
+
+## Example: with JEST
+
+---
+
+## You don't need and you don't want 100% coverage
+
+- You probably won't get 100%
+- Sometimes you will
+- 100% coverage doesn't mean that there are no bugs
+
+"I would be suspicious of anything like 100% - it would smell of someone writing tests to make the coverage numbers happy, but not thinking about what they are doing."
+
+[Fowler]
+
+---
+
+## What is "good test coverage"?
+
+You rarely get bugs that escape into production, and
+
+You are rarely hesitant to change some code for fear it will cause production bugs.
+
+---
+
+## Can you test too much?
+
+"Sure you can.
+
+You are testing too much if you can remove tests while still having enough. But this is a difficult thing to sense.
+
+One sign you are testing too much is if your tests are slowing you down.
+
+If it seems like a simple change to code causes excessively long changes to tests, that's a sign that there's a problem with the tests.
+
+This may not be so much that you are testing too many things, but that you have duplication in your tests."
+
+[Fowler]
+
+---
+
+## When to stop testing?
+
+When you are confident the feature/code works as expected 🙃
+
+---
