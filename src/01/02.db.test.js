@@ -5,6 +5,9 @@
 // 💡 Remember to unskip!
 describe.skip('db', () => {
   it(`should create empty collection when it doesn't exist`, () => {
+    // delete when implementing
+    throw(new Error('not implemented yet'))
+
     // given
     // you are connected to a database
 
@@ -21,6 +24,9 @@ describe.skip('db', () => {
   })
 
   it(`should throw an error when accessing collection without name`, () => {
+    // delete when implementing
+    throw(new Error('not implemented yet'))
+
     // given
     // you are connected to a database
 
@@ -32,6 +38,9 @@ describe.skip('db', () => {
   })
 
   it(`should return the same collection when accessing it for the second time`, () => {
+    // delete when implementing
+    throw(new Error('not implemented yet'))
+
     // given
     // you are connected to a database
     // you got access to the 'user' collection
@@ -41,12 +50,15 @@ describe.skip('db', () => {
 
     // then
     // first collection is the same as second collection
-    // (or as a developer would say: it's referetially equal)
+    // (or as a developer would say: it's referentially equal)
 
     // 💡 Note: you need to call `collection()` twice
   })
 
   it(`should insert entity to a collection`, () => {
+    // delete when implementing
+    throw(new Error('not implemented yet'))
+
     // given
     // you are connected to a database
     // you got access to the 'user' collection
@@ -60,6 +72,9 @@ describe.skip('db', () => {
   })
 
   it(`should allow finding entities by id`, () => {
+    // delete when implementing
+    throw(new Error('not implemented yet'))
+
     // given
     // you are connected to a database
     // you got access to the 'user' collection
@@ -74,6 +89,9 @@ describe.skip('db', () => {
   })
 
   it(`should allow removing entities by id`, () => {
+    // delete when implementing
+    throw(new Error('not implemented yet'))
+
     // given
     // you are connected to a database
     // you got access to the 'user' collection
@@ -81,13 +99,16 @@ describe.skip('db', () => {
     // and the entity is added to the collection
 
     // when
-    // removing an entity by
+    // removing an entity by id
 
     // then
     // entity can no longer be found
   })
 
   it(`should allow truncating collection`, () => {
+    // delete when implementing
+    throw(new Error('not implemented yet'))
+
     // given
     // you are connected to a database
     // you got access to the 'user' collection
@@ -102,6 +123,9 @@ describe.skip('db', () => {
   })
 
   it(`should clean up collections when closing connection`, () => {
+    // delete when implementing
+    throw(new Error('not implemented yet'))
+
     // given
     // you are connected to a database
     // you got access to the 'user' collection

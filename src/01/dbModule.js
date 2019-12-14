@@ -54,7 +54,7 @@ const dbModule = {
   databases: [],
   connect(connectionString) {
     if (!connectionString) {
-      throw new Error('invlid connection string!')
+      throw new Error('invalid connection string!')
     }
 
     console.log('connected!')

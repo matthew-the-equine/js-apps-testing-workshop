@@ -22,7 +22,7 @@ describe.skip('dbModule', () => {
     const connectingWithoutConnectionString = () => dbModule.connect()
 
     // then
-    expect(connectingWithoutConnectionString).toThrow('invlid connection string!')
+    expect(connectingWithoutConnectionString).toThrow('invalid connection string!')
   })
 
   it(`should close db connection`, () => {
