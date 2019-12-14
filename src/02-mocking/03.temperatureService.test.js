@@ -35,6 +35,9 @@ describe.skip(`temperatureService`, () => {
   })
 
   it(`should parse OK 200 response payload`, async () => {
+    // delete when implementing
+    throw(new Error('not implemented yet'))
+
     // given
     // const sampleResponse = {
     //   temperature: 44,
@@ -50,6 +53,9 @@ describe.skip(`temperatureService`, () => {
   })
 
   it(`should parse Bad Request 400 response payload`, async () => {
+    // delete when implementing
+    throw(new Error('not implemented yet'))
+
     // given
     // server responds with Bad Request
     // we have a logger that logs the service errors
@@ -77,6 +83,9 @@ describe.skip(`temperatureService`, () => {
     'ETIMEDOUT',
   ].forEach(errorCode => {
     it(`should parse service unavailable errors: ${errorCode}`, async () => {
+      // delete when implementing
+      throw(new Error('not implemented yet'))
+
       // given
       // server responds with specified error like: { code: errorCode, name: errorCode }
       // 💡 hint: use `replyWithError` nock method
