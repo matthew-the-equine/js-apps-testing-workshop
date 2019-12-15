@@ -38,7 +38,7 @@ describe.skip(`emojiWeatherService`, () => {
     // running forecast
 
     // then
-    // forecast includes snowall emoji
+    // forecast includes snowfall emoji
   })
 
   ;[
