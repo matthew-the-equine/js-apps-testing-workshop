@@ -2,6 +2,45 @@ import { themes } from 'mdx-deck'
 
 export const theme = themes.swiss
 
+# Testing JavaScript Applications
+
+1. Clone https://github.com/kjendrzyca/js-apps-testing-workshop
+2. `yarn install`
+3. Leave it
+4. Attendance list
+
+---
+
+# Thanks! 💪
+
+---
+
+# Intro
+
+What is training?
+
+This is not the end.
+
+---
+
+# Intro
+
+Don't understand something? Ask!
+
+---
+
+# Intro
+
+Expectations?
+
+![](https://i.imgflip.com/1z9cuo.jpg)
+
+---
+
+! **Roadmap survey**
+
+---
+
 # Why bother writing tests?
 
 ---
@@ -131,7 +170,7 @@ Example:
 
 ## 🚨🚨🚨 Test should be independent 🚨🚨🚨
 
-Example
+Example: 01.dbModule.test.js
 
 ---
 
@@ -394,7 +433,195 @@ Do users know how to use the app?
 
 ---
 
-TODO 🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨
+## stub/spy/mock
+
+[https://martinfowler.com/articles/mocksArentStubs.html](https://martinfowler.com/articles/mocksArentStubs.html)
+
+---
+
+### Dummy
+
+Dummy objects are passed around but never actually used. Usually they are just used to fill parameter lists.
+
+---
+
+### Fake
+
+Fake objects actually have working implementations, but usually, take some shortcuts which makes them not suitable for production (an in-memory database is a good example).
+
+---
+
+### Stub
+
+Stubs provide canned answers to calls made during the test, usually not responding at all to anything outside what's programmed in for the test.
+
+---
+
+### Spy
+
+Spies are stubs that also record some information based on how they were called. One form of this might be an email service that records how many messages it was sent.
+
+---
+
+### Mock
+
+Objects pre-programmed with expectations which form a specification of the calls they are expected to receive.
+
+---
+
+### ! Only mocks insist upon behavior verification
+
+There is a difference in that the stub uses state verification while the mock uses behavior verification.
+
+---
+
+## "Detroit" vs "London" / "classical" vs "mockist"
+
+You sometimes see "Detroit" style used for "classical" and "London" for "mockist".
+
+This alludes to the fact that XP was originally developed with the C3 project in Detroit
+
+and the mockist style was developed by early XP adopters in London.
+
+I should also mention that many mockist TDDers dislike that term,
+
+and indeed any terminology that implies a different style between classical and mockist testing.
+
+They don't consider that there is a useful distinction to be made between the two styles.
+
+---
+
+## Classicist vs Mockist
+
+You don't need to choose. It's a tool.
+
+Pick whatever necessary.
+
+---
+
+## Stay more on the "classical" non-mocking side
+
+![](https://media.makeameme.org/created/ha-classic.jpg)
+
+---
+
+![](https://pics.me.me/do-not-mock-a-pain-that-you-havent-endured-4867936.png)
+
+---
+
+## Metoda fake it till you make it
+
+---
+
+## Don't go solitary (don't mock) if you don't want to update all your mocks with every change
+
+Use the real thing
+
+When the implementation changes only the right tests will fail
+
+You don't need to remember to update the mock
+
+If your unit strongly depends on the other module then don't mock, use the real thing
+
+---
+
+## My C# Story
+
+![](https://ih1.redbubble.net/image.14123277.8356/raf,750x1000,075,t,black_triblend.u2.jpg)
+
+---
+
+## Mock only the code you own
+
+- use Dependency Inversion
+- build Adapters and Wrappers
+
+---
+
+## Don't use jest.fn or sinon.spy if you don't need it
+
+---
+
+## Implement assertions one-by-one
+
+---
+
+## Return value resembling the real one
+
+---
+
+## Exercise: Mocking dates - 01.dates.test.js
+
+---
+
+## Exercise: Mocking timer - 02.forecastPeriodicRunner.test.js
+
+---
+
+## Exercise: Mocking network - 03.temperatureService.test.js
+
+---
+
+## Exercise: Mocking Redux - 04.redux.test.js
+
+---
+
+## Databases
+
+When you mock the database, are you sure the communication works?
+
+Did you test failing triggers and constraints on your mocked database?
+
+---
+
+You can use in-memory databases
+
+---
+
+Example: redux-store :)
+
+---
+
+## Testing code that uses database
+
+Not easy. But the process is simple.
+
+1. Start with a clean state in every test
+2. Clean up the database **before** every test
+  - record the failure
+  - cleaning ***after*** not always works
+3. Do it in a correct order - be aware of foreign keys
+
+---
+
+## Sandbox api
+
+Example: [https://developer.paypal.com/docs/classic/lifecycle/sandbox/](https://developer.paypal.com/docs/classic/lifecycle/sandbox/)
+
+---
+
+## Why mocking node/npm modules sucks
+
+Example
+
+---
+
+## Why mocking node/npm modules sucks
+
+- you need to know the implementation details of the library, they have strange api sometimes
+- you **need to** because when it changes you need to know how to update it
+- when the module system implementation changes your tests might stop working
+- it might fail depending on the babel version
+- monkey patching
+- require and import are different
+- harder refactoring
+- so better is to use a stable api - the one you built
+
+---
+
+## Exercise: Emoji Weather Service(tm)
+
+07.emojiWeatherService.test.js
 
 ---
 
@@ -878,8 +1105,6 @@ Testing is a part of coding
 
 # Random tip and tricks
 
----
-
 - use snippets
 - test to just start
 - keep a notebook
@@ -889,3 +1114,8 @@ Testing is a part of coding
 
 # Problems from the survey
 
+---
+
+# Thanks! 💪
+
+## Thoughs? 🙈
