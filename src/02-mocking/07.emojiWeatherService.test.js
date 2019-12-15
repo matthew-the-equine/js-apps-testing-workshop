@@ -129,7 +129,7 @@ describe.skip(`emojiWeatherService`, () => {
     // using fake timers
     // date service returns summer date new Date('2019-08-01')
     // forecast service responds with rainfall
-    // rainfallService rejects 3 times
+    // rainfallService rejects 2 times
     // and then responds with 10
 
     // emoji weather service is set up
