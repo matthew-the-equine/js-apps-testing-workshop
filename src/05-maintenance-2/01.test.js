@@ -30,12 +30,13 @@ const bladeRunnerProperties = { title: 'Blade Runner' }
 // ---
 // 8. What can else can be cleaned up?
 
-describe.only(`Low-level maintenance`, () => {
+describe.skip(`Low-level maintenance`, () => {
   let array = []
   beforeEach(() => {
     array = []
   })
-  it(`should not reject when saving movie`, async () => {
+
+  it.only(`should not reject when saving movie`, async () => {
     const database = { save: jest.fn(() => Promise.resolve()), getAll: jest.fn(() => Promise.resolve([])) }
     const posterApi = { save: jest.fn(() => Promise.resolve()) }
     await MovieModule({
@@ -46,6 +47,7 @@ describe.only(`Low-level maintenance`, () => {
     expect(Number.isInteger(id)).toEqual(true)
     expect(movieProps).toEqual({ poster: 'url', ...goodMovie })
   })
+
   it(`should save sample movie and get poster if not defined`, async () => {
     const posterApi = { getPoster: () => Promise.resolve('url') }
     const database = { save: jest.fn(() => Promise.resolve()), getAll: jest.fn(() => Promise.resolve([])) }
@@ -58,6 +60,7 @@ describe.only(`Low-level maintenance`, () => {
     expect(Number.isInteger(id)).toEqual(true)
     expect(movieProps).toEqual({ poster: 'url', ...movieWithoutPoster })
   })
+
   it(`should save sample movie and get poster if not defined`, async () => {
     const posterApi = { getPoster: () => Promise.resolve('url') }
     const database = { save: jest.fn(() => Promise.resolve()), getAll: jest.fn(() => Promise.resolve([])) }
@@ -70,6 +73,7 @@ describe.only(`Low-level maintenance`, () => {
     expect(Number.isInteger(id)).toEqual(true)
     expect(movieProps).toEqual({ poster: 'url', ...movieWithoutPoster })
   })
+
   it(`get ${146 * 3} total runtime`, async () => {
     const movies = []
     const posterApi = { getPoster: () => Promise.resolve('url') }
@@ -99,6 +103,7 @@ describe.only(`Low-level maintenance`, () => {
     expect(thirdMovie).toEqual({ poster: 'url', ...movieWithoutPoster, title: bladeRunnerProperties.title })
     expect(time).toEqual(146 * 3)
   })
+
   it(`favorite director`, async () => {
     // 🦖 How do you like the variables names?
     const posterApi = { getPoster: () => Promise.resolve('url') }
@@ -127,6 +132,7 @@ describe.only(`Low-level maintenance`, () => {
     expect(movieProps).toEqual({ poster: 'url', ...movieWithoutPoster })
     expect(director).toEqual('Peter Jackson')
   })
+
   it(`validate bad movies`, async () => {
     const posterApi = { getPoster: () => Promise.resolve('url') }
     const database = {
@@ -147,6 +153,7 @@ describe.only(`Low-level maintenance`, () => {
     // expect(Number.isInteger(id)).toEqual(true)
     expect(movieModule.addMovie(badMovie)).rejects.toThrow(new Error('This is not a good movie'))
   })
+
   it(`duplicated movies`, async () => {
     const posterApi = { getPoster: () => Promise.resolve('url') }
     const database = {
@@ -171,5 +178,3 @@ describe.only(`Low-level maintenance`, () => {
   // TODO: calculate total time watched based on director and genre
   // TODO: documentary movies should be saved in a separate collection
 })
-
-

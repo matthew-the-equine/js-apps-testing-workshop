@@ -16,8 +16,9 @@ class ExamCalculator {
   }
 }
 
+// 💡 Remember to unskip!
 describe.skip('ExamCalculator tested... badly', () => {
-  it(`should not throw when it's before 9:00`, () => {
+  it.only(`should not throw when it's before 9:00`, () => {
     // given
     const date = new Date()
     date.setHours(6)
@@ -47,8 +48,9 @@ describe.skip('ExamCalculator tested... badly', () => {
   })
 })
 
+// 💡 Remember to unskip!
 describe.skip(`ExamCalculator tested... well, better at least`, () => {
-  it(`should sum when it's before 9:00`, () => {
+  it.only(`should sum when it's before 9:00`, () => {
     // given
     const a = 1
     const b = 3
@@ -63,4 +65,3 @@ describe.skip(`ExamCalculator tested... well, better at least`, () => {
     expect(sum).toEqual(4)
   })
 })
-

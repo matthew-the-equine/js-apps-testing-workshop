@@ -10,8 +10,9 @@ const reducerFactory = ({
   return actionHandler(state, payload, type)
 }
 
+// 💡 Remember to unskip!
 describe.skip(`TodoReducer`, () => {
-  it('should map state with provided action handler v1', () => {
+  it.only('should map state with provided action handler v1', () => {
     // given
     const initialState = {}
     const TEST_ACTION_TYPE = 'TEST_ACTION_TYPE'

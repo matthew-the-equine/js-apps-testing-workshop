@@ -3,7 +3,7 @@ import { emojis } from './weatherForecast/emojis'
 
 // 💡 Remember to unskip!
 describe.skip(`emojiWeatherService`, () => {
-  it(`should should show default temperature emoji`, async () => {
+  it.only(`should should show default temperature emoji`, async () => {
     // given
     const runForecast = emojiWeatherService({
       // setup only what's necessary
@@ -38,7 +38,7 @@ describe.skip(`emojiWeatherService`, () => {
     // running forecast
 
     // then
-    // forecast includes snowall emoji
+    // forecast includes snowfall emoji
   })
 
   ;[
@@ -129,7 +129,7 @@ describe.skip(`emojiWeatherService`, () => {
     // using fake timers
     // date service returns summer date new Date('2019-08-01')
     // forecast service responds with rainfall
-    // rainfallService rejects 3 times
+    // rainfallService rejects 2 times
     // and then responds with 10
 
     // emoji weather service is set up
@@ -211,4 +211,3 @@ describe.skip(`emojiWeatherService`, () => {
 // rainfall >= 50
 
 // TODO use calendar emoji 📅
-

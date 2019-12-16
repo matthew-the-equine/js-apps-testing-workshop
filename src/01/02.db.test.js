@@ -4,7 +4,7 @@
 // 🦖 Your job is to replace the comments with actual code, have fun!
 // 💡 Remember to unskip!
 describe.skip('db', () => {
-  it(`should create empty collection when it doesn't exist`, () => {
+  it.only(`should create empty collection when it doesn't exist`, () => {
     // given
     // you are connected to a database
 
@@ -41,7 +41,7 @@ describe.skip('db', () => {
 
     // then
     // first collection is the same as second collection
-    // (or as a developer would say: it's referetially equal)
+    // (or as a developer would say: it's referentially equal)
 
     // 💡 Note: you need to call `collection()` twice
   })
@@ -81,7 +81,7 @@ describe.skip('db', () => {
     // and the entity is added to the collection
 
     // when
-    // removing an entity by
+    // removing an entity by id
 
     // then
     // entity can no longer be found

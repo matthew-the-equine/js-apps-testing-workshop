@@ -22,7 +22,7 @@ const mockStore = configureMockStore()
 
 // 💡 Remember to unskip!
 describe.skip('redux tests', () => {
-  it('Example: should render rainfall emoji based on fake global state', () => {
+  it.only('Example: should render rainfall emoji based on fake global state', () => {
     // given
     const store = mockStore({
       season: 'spring',

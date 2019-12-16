@@ -23,7 +23,7 @@ describe.skip(`temperatureService`, () => {
     nock.enableNetConnect()
   })
 
-  it(`should call underlying http service`, async () => {
+  it.only(`should call underlying http service`, async () => {
     // given
     const assert = mockServer().reply(200)
 

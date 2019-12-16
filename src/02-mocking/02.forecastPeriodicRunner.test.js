@@ -7,7 +7,7 @@ const forecastPeriodicRunner = runForecast => {
 // 💡 Remember to unskip!
 describe.skip('forecast periodic runner', () => {
   // 💡 Example:
-  it('should said hello', () => {
+  it.only('should said hello', () => {
     let value
     const timerId = setInterval(() => { value = 'hello' }, 10000)
     // const secondTimerId = setTimeout(() => { value += ' there' }, 10000)
