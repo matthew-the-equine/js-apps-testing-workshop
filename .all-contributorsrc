@@ -1,0 +1,25 @@
+{
+  "files": [
+    "README.md"
+  ],
+  "imageSize": 100,
+  "commit": false,
+  "contributors": [
+    {
+      "login": "tarnas14",
+      "name": "Mateusz Tarnaski",
+      "avatar_url": "https://avatars0.githubusercontent.com/u/9142942?v=4",
+      "profile": "https://github.com/tarnas14",
+      "contributions": [
+        "code",
+        "maintenance"
+      ]
+    }
+  ],
+  "contributorsPerLine": 7,
+  "projectName": "js-apps-testing-workshop",
+  "projectOwner": "kjendrzyca",
+  "repoType": "github",
+  "repoHost": "https://github.com",
+  "skipCi": true
+}
